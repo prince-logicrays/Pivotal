@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<!--
+/**
+ * @author Logicrays Team
+ * @copyright Copyright (c) 2021 Logicrays (https://www.logicrays.com/)
+ * @package Logicrays_EmailFilter
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_place_before">
+ 		 <observer name="logicrays_sales_order_place_before" instance="Logicrays\EmailFilter\Observer\Controlleractionpredispatch"/>
+ 	</event>
+</config>

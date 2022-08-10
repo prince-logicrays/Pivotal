@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Pivotal\TradeInPricing\Api\Data\TradeInPricingInterface" type="Pivotal\TradeInPricing\Model\TradeInPricing" />
+
+    <virtualType name="Pivotal\TradeInPricing\Model\ResourceModel\TradeInPricing\TradeInPricing\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">pivotal_tradein_pricing</argument>
+            <argument name="resourceModel" xsi:type="string">Pivotal\TradeInPricing\Model\ResourceModel\TradeInPricing</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="tradeinpricing_list_data_source" xsi:type="string">Pivotal\TradeInPricing\Model\ResourceModel\TradeInPricing\TradeInPricing\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Pivotal\TradeInPricing\Ui\Component\MassAction\Status\Options">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="urlPath" xsi:type="string">tradeinpricing/tradeinpricing/MassChangeStatus</item>
+                <item name="paramName" xsi:type="string">status</item>
+                <item name="confirm" xsi:type="array">
+                    <item name="title" xsi:type="string" translatable="true">Change Status</item>
+                    <item name="message" xsi:type="string" translatable="true">Are you sure to change?</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

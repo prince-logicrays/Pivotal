@@ -1,0 +1,16 @@
+<input type="hidden" name="selected_options" value='<?= $this->getRequest()->getParam("selected_options") ?>' />
+<script type="text/javascript">
+require([
+	'jquery'
+], function($){
+  	$(document).ready( function() {
+	  	setTimeout(function(){ 
+	  		$('.super-attribute-select').each(function(index){
+	  			$(this).trigger('change');
+	  			$('.super-attribute-select').eq(index).trigger('change');
+	  		});
+	  		console.log('timeout');
+	  	}, 2000);   
+  	});
+});
+</script>
