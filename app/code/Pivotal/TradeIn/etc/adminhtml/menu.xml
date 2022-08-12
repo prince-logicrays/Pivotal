@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+     <menu>
+          <!-- <add id="Pivotal_TradeIn::hello" title="Hello" translate="title" module="Pivotal_TradeIn" sortOrder="40" resource="Pivotal_TradeIn::hello"/> -->
+          <add id="Pivotal_TradeIn::tradein" title="Trades" module="Pivotal_TradeIn" sortOrder="40" parent="Pivotal_TradeInPricing::trade_in" action="tradein/tradein/index" resource="Pivotal_TradeIn::tradein"/>
+     </menu>
+</config>

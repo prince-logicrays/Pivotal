@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+     <menu>
+          <add id="Pivotal_Test::test" title="test" translate="title" module="Pivotal_Test" sortOrder="40" resource="Pivotal_Test::test"/>
+          <add id="Pivotal_Test::test1" title="test1" module="Pivotal_Test" sortOrder="40" parent="Pivotal_Test::test" action="test/test/index" resource="Pivotal_Test::test1"/>
+     </menu>
+</config>

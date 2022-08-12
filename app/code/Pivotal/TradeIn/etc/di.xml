@@ -10,4 +10,18 @@
 	<preference for="Pivotal\TradeIn\Api\Data\TradeInAddressInterface" type="Pivotal\TradeIn\Model\TradeInAddress"/>
 	<preference for="Pivotal\TradeIn\Api\Data\TradeInAddressSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
 	<preference for="Pivotal\TradeIn\Model\ConfigInterface" type="Pivotal\TradeIn\Model\Config"/>
+
+	<virtualType name="Pivotal\TradeIn\Model\ResourceModel\TradeIn\TradeIn\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">trade_in</argument>
+            <argument name="resourceModel" xsi:type="string">Pivotal\TradeIn\Model\ResourceModel\TradeIn</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="tradein_list_data_source" xsi:type="string">Pivotal\TradeIn\Model\ResourceModel\TradeIn\TradeIn\Collection</item>
+            </argument>
+        </arguments>
+    </type>
 </config>
