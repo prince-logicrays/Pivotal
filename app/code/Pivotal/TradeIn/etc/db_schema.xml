@@ -1,0 +1,60 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table name="trade_in" resource="default" engine="innodb" comment="trade_in Table">
+		<column xsi:type="int" name="trade_in_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="trade_in_id"/>
+		</constraint>
+		<column name="firstname" nullable="true" xsi:type="varchar" comment="firstname" length="255"/>
+		<column name="lastname" nullable="true" xsi:type="varchar" comment="lastname" length="255"/>
+		<column name="email" nullable="true" xsi:type="varchar" comment="email" length="255"/>
+		<column name="phone_number" nullable="true" xsi:type="varchar" comment="phone_number" length="255"/>
+		<column name="shipping_method_code" nullable="true" xsi:type="varchar" comment="shipping_method_code" length="255"/>
+		<column name="shipping_method_title" nullable="true" xsi:type="varchar" comment="shipping_method_title" length="255"/>
+		<column name="collection_date" nullable="true" xsi:type="datetime" comment="collection_date"/>
+		<column name="number_of_parcels" nullable="true" xsi:type="int" comment="number_of_parcels" identity="false"/>
+		<column name="arrange_free_shipping" nullable="true" xsi:type="varchar" comment="arrange_free_shipping" length="255"/>
+		<column name="grand_total" nullable="true" xsi:type="decimal" comment="grand_total" scale="4" precision="12"/>
+		<column name="tradein_currency_code" nullable="true" xsi:type="varchar" comment="tradein_currency_code" length="255"/>
+		<column name="total_item_count" nullable="true" xsi:type="int" comment="total_item_count" identity="false"/>
+		<column name="store_id" nullable="true" xsi:type="int" comment="store_id" identity="false"/>
+		<column name="store_name" nullable="true" xsi:type="varchar" comment="store_name" length="255"/>
+		<column name="website_id" nullable="true" xsi:type="int" comment="website_id" identity="false"/>
+		<column name="remote_ip" nullable="true" xsi:type="varchar" comment="remote_ip" length="255"/>
+		<column name="created_at" nullable="false" xsi:type="timestamp" comment="created_at" default="CURRENT_TIMESTAMP"/>
+	</table>
+	<table name="trade_in_item" resource="default" engine="innodb" comment="trade_in_item Table">
+		<column xsi:type="int" name="trade_in_item_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="trade_in_item_id"/>
+		</constraint>
+		<column name="trade_in_id" unsigned="true"  nullable="false" xsi:type="int" comment="trade_in_id"/>
+		<column name="product_id" nullable="true" xsi:type="int" comment="product_id" identity="false"/>
+		<column name="product_name" nullable="true" xsi:type="varchar" comment="product_name" length="255"/>
+		<column name="sku" nullable="true" xsi:type="varchar" comment="sku" length="255"/>
+		<column name="price" nullable="true" xsi:type="decimal" comment="price" scale="4" precision="12"/>
+		<column name="condition" nullable="true" xsi:type="varchar" comment="condition" length="255"/>
+		<column name="qty" nullable="true" xsi:type="int" comment="qty" identity="false"/>
+		<column name="subtotal" nullable="true" xsi:type="decimal" comment="subtotal" scale="4" precision="12"/>
+		<constraint xsi:type="foreign" referenceId="trade_in_item_trade_in_id" table="trade_in_item" column="trade_in_id" 
+			referenceTable="trade_in" referenceColumn="trade_in_id" 
+			onDelete="CASCADE"/>
+	</table>
+	<table name="trade_in_address" resource="default" engine="innodb" comment="trade_in_address Table">
+		<column xsi:type="int" name="trade_in_address_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="trade_in_address_id"/>
+		</constraint>
+		<column name="trade_in_id" unsigned="true"  nullable="false" xsi:type="int" comment="trade_in_id"/>
+		<column name="address_type" nullable="true" xsi:type="varchar" comment="address_type" length="255"/>
+		<column name="street" nullable="true" xsi:type="varchar" comment="street" length="255"/>
+		<column name="city" nullable="true" xsi:type="varchar" comment="city" length="255"/>
+		<column name="postcode" nullable="true" xsi:type="varchar" comment="postcode" length="255"/>
+		<column name="region_id" nullable="true" xsi:type="int" comment="region_id" identity="false"/>
+		<column name="region" nullable="true" xsi:type="varchar" comment="region" length="255"/>
+		<column name="country_id" nullable="true" xsi:type="varchar" comment="country_id" length="255"/>
+		<constraint xsi:type="foreign" referenceId="trade_in_address_trade_in_id" table="trade_in_address" column="trade_in_id" 
+			referenceTable="trade_in" referenceColumn="trade_in_id" 
+			onDelete="CASCADE"/>
+	</table>
+</schema>

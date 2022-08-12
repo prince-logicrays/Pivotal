@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Pivotal\TradeIn\Api\TradeInRepositoryInterface" type="Pivotal\TradeIn\Model\TradeInRepository"/>
+	<preference for="Pivotal\TradeIn\Api\Data\TradeInInterface" type="Pivotal\TradeIn\Model\TradeIn"/>
+	<preference for="Pivotal\TradeIn\Api\Data\TradeInSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<preference for="Pivotal\TradeIn\Api\TradeInItemRepositoryInterface" type="Pivotal\TradeIn\Model\TradeInItemRepository"/>
+	<preference for="Pivotal\TradeIn\Api\Data\TradeInItemInterface" type="Pivotal\TradeIn\Model\TradeInItem"/>
+	<preference for="Pivotal\TradeIn\Api\Data\TradeInItemSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<preference for="Pivotal\TradeIn\Api\TradeInAddressRepositoryInterface" type="Pivotal\TradeIn\Model\TradeInAddressRepository"/>
+	<preference for="Pivotal\TradeIn\Api\Data\TradeInAddressInterface" type="Pivotal\TradeIn\Model\TradeInAddress"/>
+	<preference for="Pivotal\TradeIn\Api\Data\TradeInAddressSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<preference for="Pivotal\TradeIn\Model\ConfigInterface" type="Pivotal\TradeIn\Model\Config"/>
+</config>

@@ -1,0 +1,134 @@
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate
+// phpcs:disable Generic.Files.LineLength.TooLong
+
+/** @var \Pivotal\TradeIn\Block\TradeInForm $block */
+/** @var \Pivotal\TradeIn\ViewModel\UserDataProvider $viewModel */
+
+$viewModel = $block->getViewModel();
+?>
+<div class="trade-in-form-wrapper">
+    <form class="form trade-in-form"
+        action="<?= $block->escapeUrl($block->getFormAction()) ?>"
+        id="trade-in-form"
+        method="post"
+        data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+        data-mage-init='{"validation":{}}'
+        style="width:100%;">
+
+        <div class="tradein-form-steps">
+            <div class="step-getin-touch" data-role="collapsible">
+                <div class="step-getin-touch" data-role="trigger">
+                    <h2>Get in touch</h2>
+                </div>
+            </div>
+            <div class="step-get-quote" data-role="collapsible">
+                <div class="step-getin-touch" data-role="trigger">
+                    <h2>Get quote</h2>
+                </div>
+            </div>
+            <div class="step-arrange-shipping" data-role="collapsible">
+                <div class="step-getin-touch" data-role="trigger">
+                    <h2>Arrange shipping</h2>
+                </div>
+            </div>
+            <div class="step-getin-touch-content" data-role="content">
+                <h1>GET AN INSTANT QUOTE</h1>
+                <?= $block->getChildHtml('tradeIn.form.addItems') ?>
+                <fieldset class="fieldset">
+                    <legend class="legend"><span><?= $block->escapeHtml(__('Your details')) ?></span></legend><br />
+                    <div class="field note no-label">
+                        <?= $block->escapeHtml(__("We need to capture some details from you so we can send across your quote.")) ?>
+                    </div>
+                    <div class="field firstname required">
+                        <label class="label" for="name"><span><?= $block->escapeHtml(__('Firstname')) ?></span></label>
+                        <div class="control">
+                            <input name="firstname"
+                                id="firstname"
+                                title="<?= $block->escapeHtmlAttr(__('Firstname')) ?>"
+                                value="<?= $block->escapeHtmlAttr($viewModel->getUserFirstName()) ?>"
+                                class="input-text"
+                                type="text"
+                                data-validate="{required:true}"/>
+                        </div>
+                    </div>
+                    <div class="field lastname required">
+                        <label class="label" for="name"><span><?= $block->escapeHtml(__('Lastname')) ?></span></label>
+                        <div class="control">
+                            <input name="lastname"
+                                id="lastname"
+                                title="<?= $block->escapeHtmlAttr(__('Lastname')) ?>"
+                                value="<?= $block->escapeHtmlAttr($viewModel->getUserLastName()) ?>"
+                                class="input-text"
+                                type="text"
+                                data-validate="{required:true}"/>
+                        </div>
+                    </div>
+                    <div class="field email required">
+                        <label class="label" for="email"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
+                        <div class="control">
+                            <input name="email"
+                                id="email"
+                                title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
+                                value="<?= $block->escapeHtmlAttr($viewModel->getUserEmail()) ?>"
+                                class="input-text"
+                                type="email"
+                                data-validate="{required:true, 'validate-email':true}"/>
+                        </div>
+                    </div>
+                    <div class="field phonenumber required">
+                        <label class="label" for="phonenumber"><span><?= $block->escapeHtml(__('Phone Number')) ?></span></label>
+                        <div class="control">
+                            <input name="phonenumber"
+                                id="phonenumber"
+                                title="<?= $block->escapeHtmlAttr(__('Phone Number')) ?>"
+                                value="<?= $block->escapeHtmlAttr($viewModel->getUserTelephone()) ?>"
+                                class="input-text"
+                                type="tel"
+                                data-validate="{required:true}"/>
+                        </div>
+                    </div>
+                    <div class="actions-toolbar">
+                        <div class="primary">
+                            <button type="button" title="<?= $block->escapeHtmlAttr(__('Get quote')) ?>" class="get-quote-btn action primary">
+                                <span><?= $block->escapeHtml(__('Get quote')) ?></span>
+                            </button>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="step-get-quote-content" data-role="content">
+                <h1>step 2 </h1>
+            </div>
+            <div class="step-arrange-shipping-content" data-role="content">
+                <h1>step3</h1>
+                <div class="actions-toolbar">
+                    <div class="primary">
+                        <input type="hidden" name="hideit" id="hideit" value="" />
+                        <button type="submit" title="<?= $block->escapeHtmlAttr(__('Submit')) ?>" class="action submit primary">
+                            <span><?= $block->escapeHtml(__('Submit')) ?></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/x-magento-init">
+    {
+        ".trade-in-form-wrapper": {
+            "tradeInFormWidget": {}
+        }
+    }
+</script>
+<style>
+    form.trade-in-form .control {width: 50%;}
+    .product-search-item-data {
+        border: 1px solid;
+        margin-bottom: 5px;
+        padding: 10px;
+    }
+    .add-more-item{text-align: center;}
+    .add-more-btn {display: none;}
+    
+</style>

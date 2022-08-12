@@ -1,0 +1,60 @@
+
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate
+// phpcs:disable Generic.Files.LineLength.TooLong
+
+/** @var \Pivotal\TradeIn\Block\TradeInForm $block */
+$conditions = $block->getConditions();
+?>
+
+<div class="trade-in-form-add-product">
+    <legend class="legend"><span><?= $block->escapeHtml(__('What are you selling?')) ?></span></legend><br />
+    <div class="field note no-label">
+        <?= $block->escapeHtml(__("Tell us a bit about the kit you're looking to sell for an instant quote.")) ?>
+    </div>
+    
+    <div data-role="product-search-items"></div>
+
+    <div class="field product-search-element required">
+        <div class="control">
+            <input name="product_search"
+                id="product_search"
+                value=""
+                class="input-text"
+                type="text"
+                placeholder="Add details such as brand, make and model"/>
+            <input type="hidden" name="product_search_url" id="product_search_url" 
+                    value="<?=/* @noEscape*/ $block->getUrl('trade-in/index/product'); ?>">
+            <div class="product-not-found error">
+            </div>
+        </div>
+        <div class="condition-button-main">
+            <div class="conditions-left">
+                <?php if ($conditions->count() > 0):?>
+                    <select name="product_conditions" class="product_conditions">
+                        <option value="">Conditions</option>
+                        <?php foreach ($conditions as $condition): ?>
+                            <option value="<?= /*@noEscape*/ $condition->getEntityId();?>">
+                                <?= /*@noEscape*/ $condition->getProductCondition();?>
+                            </option>
+                        <?php endforeach;?>
+                    </select>
+                <?php endif;?>
+                <div class="condition-error error"></div>
+            </div>
+            <div class="condition-guide-middle">
+                <a href="<?= /*@noEscape*/ $block->getConditionGuideUrl()?>"
+                    target="_blank">Condition Guide</a>
+            </div>
+            <div class="add-item-btn-right">
+                <button type="button" class="add-item-btn"> Add Item</button>
+            </div>
+            
+        </div>
+        <div class="suggestion-wrapper">
+        </div>
+    </div>
+    <div class="add-more-item">
+        <button type="button" class="add-more-btn"> Add more</button>
+    </div>
+</div>

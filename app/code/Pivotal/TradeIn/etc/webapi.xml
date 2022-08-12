@@ -1,0 +1,93 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route url="/V1/pivotal-tradein/trade_in" method="POST">
+		<service class="Pivotal\TradeIn\Api\TradeInRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Pivotal_TradeIn::trade_in_save"/>
+		</resources>
+	</route>
+	<route url="/V1/pivotal-tradein/trade_in/search" method="GET">
+		<service class="Pivotal\TradeIn\Api\TradeInRepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="Pivotal_TradeIn::trade_in_view"/>
+		</resources>
+	</route>
+	<route url="/V1/pivotal-tradein/trade_in/:tradeInId" method="GET">
+		<service class="Pivotal\TradeIn\Api\TradeInRepositoryInterface" method="get"/>
+		<resources>
+			<resource ref="Pivotal_TradeIn::trade_in_view"/>
+		</resources>
+	</route>
+	<route url="/V1/pivotal-tradein/trade_in/:tradeInId" method="PUT">
+		<service class="Pivotal\TradeIn\Api\TradeInRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Pivotal_TradeIn::trade_in_update"/>
+		</resources>
+	</route>
+	<route url="/V1/pivotal-tradein/trade_in/:tradeInId" method="DELETE">
+		<service class="Pivotal\TradeIn\Api\TradeInRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="Pivotal_TradeIn::trade_in_delete"/>
+		</resources>
+	</route>
+	<route url="/V1/pivotal-tradein/trade_in_item" method="POST">
+		<service class="Pivotal\TradeIn\Api\TradeInItemRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Pivotal_TradeIn::trade_in_item_save"/>
+		</resources>
+	</route>
+	<route url="/V1/pivotal-tradein/trade_in_item/search" method="GET">
+		<service class="Pivotal\TradeIn\Api\TradeInItemRepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="Pivotal_TradeIn::trade_in_item_view"/>
+		</resources>
+	</route>
+	<route url="/V1/pivotal-tradein/trade_in_item/:tradeInItemId" method="GET">
+		<service class="Pivotal\TradeIn\Api\TradeInItemRepositoryInterface" method="get"/>
+		<resources>
+			<resource ref="Pivotal_TradeIn::trade_in_item_view"/>
+		</resources>
+	</route>
+	<route url="/V1/pivotal-tradein/trade_in_item/:tradeInItemId" method="PUT">
+		<service class="Pivotal\TradeIn\Api\TradeInItemRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Pivotal_TradeIn::trade_in_item_update"/>
+		</resources>
+	</route>
+	<route url="/V1/pivotal-tradein/trade_in_item/:tradeInItemId" method="DELETE">
+		<service class="Pivotal\TradeIn\Api\TradeInItemRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="Pivotal_TradeIn::trade_in_item_delete"/>
+		</resources>
+	</route>
+	<route url="/V1/pivotal-tradein/trade_in_address" method="POST">
+		<service class="Pivotal\TradeIn\Api\TradeInAddressRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Pivotal_TradeIn::trade_in_address_save"/>
+		</resources>
+	</route>
+	<route url="/V1/pivotal-tradein/trade_in_address/search" method="GET">
+		<service class="Pivotal\TradeIn\Api\TradeInAddressRepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="Pivotal_TradeIn::trade_in_address_view"/>
+		</resources>
+	</route>
+	<route url="/V1/pivotal-tradein/trade_in_address/:tradeInAddressId" method="GET">
+		<service class="Pivotal\TradeIn\Api\TradeInAddressRepositoryInterface" method="get"/>
+		<resources>
+			<resource ref="Pivotal_TradeIn::trade_in_address_view"/>
+		</resources>
+	</route>
+	<route url="/V1/pivotal-tradein/trade_in_address/:tradeInAddressId" method="PUT">
+		<service class="Pivotal\TradeIn\Api\TradeInAddressRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Pivotal_TradeIn::trade_in_address_update"/>
+		</resources>
+	</route>
+	<route url="/V1/pivotal-tradein/trade_in_address/:tradeInAddressId" method="DELETE">
+		<service class="Pivotal\TradeIn\Api\TradeInAddressRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="Pivotal_TradeIn::trade_in_address_delete"/>
+		</resources>
+	</route>
+</routes>

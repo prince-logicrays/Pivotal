@@ -1,0 +1,22 @@
+<div class="product-search-item-data" 
+     data-productId="<%- data.productId %>"
+     data-productName="<%- data.productName %>"
+     data-condition_id="<%- data.condition_id %>"
+     data-condition="<%- data.condition %>"
+    >
+    <div class="item-data" >
+        <div class="width-90">
+            <strong class="item-title"><%- data.productName %> </strong> 
+            <span class="item-condition" data-condition_id="<%- data.condition_id %>"><%- data.condition %> </span>
+            <% if (data.note) { %>
+                <p class="item-condition"><%- data.note %> </p>
+            <% } %>
+        </div>
+        <div class="width-10">
+            <a href="javascript:;" class="edit-data-item" data-edit-item="<%- data.itemId %>">Edit</a>
+        </div>
+        <div class="width-10">
+            <a href="javascript:;" class="remove-data-item" data-remove-item="<%- data.itemId %>">x</a>
+        </div>
+    </div>
+</div>

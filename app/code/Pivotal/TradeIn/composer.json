@@ -1,0 +1,17 @@
+{
+    "name": "pivotal/module-tradein",
+    "description": "",
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [
+      "MIT"
+    ],
+    "autoload": {
+      "psr-4": {
+        "Pivotal\\TradeIn\\": ""
+      },
+      "files": [
+        "registration.php"
+      ]
+    }
+  }
