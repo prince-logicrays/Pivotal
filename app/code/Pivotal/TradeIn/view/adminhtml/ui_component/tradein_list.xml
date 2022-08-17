@@ -8,12 +8,6 @@
         </item>
         <item name="spinner" xsi:type="string">tradein_columns</item>
         <item name="buttons" xsi:type="array">
-            <item name="add" xsi:type="array">
-                <item name="name" xsi:type="string">add</item>
-                <item name="label" xsi:type="string" translate="true">Add New Row</item>
-                <item name="class" xsi:type="string">primary</item>
-                <item name="url" xsi:type="string">*/*/addform</item>
-            </item>
         </item>
     </argument>
     <dataSource name="tradein_list_data_source">
@@ -254,7 +248,7 @@
                </item>
            </argument>
        </column>
-        <column name="tradein_currency_code" >
+        <!-- <column name="tradein_currency_code" >
            <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                 <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
@@ -262,7 +256,7 @@
                    <item name="label" xsi:type="string" translate="true">tradeinCurrencyCode</item>
                </item>
            </argument>
-       </column>
+       </column> -->
          <column name="total_item_count" >
            <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -272,7 +266,7 @@
                </item>
            </argument>
        </column>
-         <column name="store_id" >
+         <!-- <column name="store_id" >
            <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                 <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
@@ -280,7 +274,7 @@
                    <item name="label" xsi:type="string" translate="true">storeId</item>
                </item>
            </argument>
-       </column>
+       </column> -->
          <column name="store_name" >
            <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -290,7 +284,7 @@
                </item>
            </argument>
        </column>
-         <column name="website_id" >
+         <!-- <column name="website_id" >
            <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                 <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
@@ -298,7 +292,7 @@
                    <item name="label" xsi:type="string" translate="true">websiteId</item>
                </item>
            </argument>
-       </column>
+       </column> -->
         <column name="remote_ip" >
            <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -318,21 +312,7 @@
            </argument>
        </column>
 
-       <!-- <column name="status" >
-           <argument name="data" xsi:type="array">
-               <item name="options" xsi:type="object">Pivotal\TradeInPricing\Model\Status</item>
-               <item name="config" xsi:type="array">
-                    <item name="filter" xsi:type="string">select</item>
-                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
-                    <item name="dataType" xsi:type="string">select</item>
-                    <item name="editor" xsi:type="array">
-                        <item name="editorType" xsi:type="string">select</item>
-                    </item>
-                    <item name="label" xsi:type="string" translate="true">Status</item>
-               </item>
-           </argument>
-       </column> -->
-        <!-- <actionsColumn name="actions" class="Pivotal\TradeInPricing\Ui\Component\Listing\TradeInPricing\Column\Action">
+      <actionsColumn name="actions" class="Pivotal\TradeIn\Ui\Component\Listing\TradeIn\Column\Action">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="resizeEnabled" xsi:type="boolean">false</item>
@@ -340,6 +320,7 @@
                     <item name="indexField" xsi:type="string">trade_in_id</item>
                 </item>
                 </argument>
-        </actionsColumn> -->
+        </actionsColumn>
+
     </columns>
 </listing>

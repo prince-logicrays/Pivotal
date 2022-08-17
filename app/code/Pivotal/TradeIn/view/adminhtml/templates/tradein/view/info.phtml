@@ -1,0 +1,146 @@
+<?php
+$TradeInCollection = $block->getTradeInCollection();
+$TradeInAddressCollection = $block->getTradeInAddressCollection();
+$TradeInItemCollection = $block->getTradeInItemCollection();
+$id = $block->getId();
+?>
+
+<section class="admin__page-section order-view-account-information">
+    <div class="admin__page-section-title">
+        <span class="title"><?= $block->escapeHtml(__('Account Information')) ?></span>
+    </div>
+    <div class="admin__page-section-content">
+        <div class="admin__page-section-item order-information">
+            <div class="admin__page-section-item-content">
+                <table class="admin__table-secondary order-information-table">
+                    <?php foreach ($TradeInCollection as $item): ?>
+                        <?php if ($item->getTradeInId() == $id['trade_in_id']): ?>
+                            <tr>
+                                <th><?= $block->escapeHtml(__('First Name')) ?></th>
+                                <td><?=  /* @noEscape */ $item->getTradeInId() ?></td>
+                            </tr>
+                            <tr>
+                                <th><?= $block->escapeHtml(__('Last Name')) ?></th>
+                                <td><?= /* @noEscape */  $item->getLastName() ?></td>
+                            </tr>
+                            <tr>
+                                <th><?= $block->escapeHtml(__('Email')) ?></th>
+                                <td><?= /* @noEscape */  $item->getEmail() ?></td>
+                            </tr>
+                            <tr>
+                                <th><?= $block->escapeHtml(__('Phone Number')) ?></th>
+                                <td><?= /* @noEscape */  $item->getPhoneNumber() ?></td>
+                            </tr>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </table>
+            </div>
+        </div> 
+    </div>
+</section>
+
+<section class="admin__page-section order-addresses">
+    <div class="admin__page-section-title">
+        <span class="title"><?= $block->escapeHtml(__('Address Information')) ?></span>
+    </div>
+    <div class="admin__page-section-content">
+        <?php foreach ($TradeInAddressCollection as $item): ?>
+            <?php if ($item->getTradeInId() == $id['trade_in_id']): ?>
+                <div class="admin__page-section-item order-billing-address">
+                    <?php /* Billing Address */ ?>
+                    <div class="admin__page-section-item-title">
+                        <span class="title"><?= $block->escapeHtml(__('Billing Address')) ?></span>
+                    </div>
+                    <address class="admin__page-section-item-content">
+                        <?= /* @noEscape */ $item->getStreet().'<br>'.$item->getCity().', '.$item->getPostCode().
+                        '<br>'.$item->getRegion() ?>
+                    </address>
+                </div>
+                    <div class="admin__page-section-item order-shipping-address">
+                        <?php /* Shipping Address */ ?>
+                        <div class="admin__page-section-item-title">
+                            <span class="title"><?= $block->escapeHtml(__('Shipping Address')) ?></span>
+                        </div>
+                        <address class="admin__page-section-item-content">
+                            <?= /* @noEscape */ $item->getStreet().'<br>'.$item->getCity().', '.$item->getPostCode().
+                            '<br>'.$item->getRegion() ?>
+                        </address>
+                    </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </div>
+</section>
+
+<section class="admin__page-section">
+    <div class="admin__page-section-title">
+        <span class="title"><?= $block->escapeHtml(__('Items Ordered')) ?></span>
+    </div>
+    <div class="admin__table-wrapper">
+        <table class="data-table admin__table-primary edit-order-table" id="my-orders-table">
+            <thead>
+                <tr class="headings">
+                    <th scope="col" class="col-product-name"><?= $block->escapeHtml(__('Product Name')) ?></th></n>
+                    <th scope="col" class="col-price"><?= $block->escapeHtml(__('Price')) ?></th>
+                    <th scope="col" class="col-qty"><?= $block->escapeHtml(__('Qty')) ?></th>
+                    <th scope="col" class="col-condition"><?= $block->escapeHtml(__('Condition')) ?></th>
+                    <th scope="col" class="col-subtotal"><?= $block->escapeHtml(__('Subtotal')) ?></th>
+                </tr>
+            </thead>
+            <tbody class="even">
+                <?php foreach ($TradeInItemCollection as $item): ?>
+                    <?php if ($item->getTradeInId() == $id['trade_in_id']): ?>
+                        <tr>
+                            <td data-th="<?= $block->escapeHtml(__('Product Name')) ?>" class="col product_name">
+                                <?= /* @noEscape */ $item->getProductName()?>
+                            </td>
+                            <td data-th="<?= $block->escapeHtml(__('Price')) ?>" class="col condition">
+                                <?= /* @noEscape */ $item->getPrice() ?>
+                            </td> 
+                            <td data-th="<?= $block->escapeHtml(__('Qty')) ?>" class="col qty">
+                                <?= /* @noEscape */ $item->getQty() ?>
+                            </td>
+                            <td data-th="<?= $block->escapeHtml(__('Condition')) ?>" class="col condition">
+                                <?= /* @noEscape */ $item->getCondition() ?>
+                            </td>
+                            <td data-th="<?= $block->escapeHtml(__('Subtotal')) ?>" class="col subtotal">
+                                <?= /* @noEscape */ $item->getSubtotal() ?>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section class="admin__page-section">
+    <div class="admin__page-section-title">
+        <span class="title"><?= $block->escapeHtml(__('Order Total')) ?></span>
+    </div>
+    <div class="admin__page-section-content">
+        <div class="admin__page-section-item order-information">
+            <div class="admin__page-section-item-content">
+                <table class="data-table admin__table-secondary order-subtotal-table">
+                    <?php foreach ($TradeInItemCollection as $item): ?>
+                        <?php if ($item->getTradeInId() == $id['trade_in_id']): ?>
+                            <tr>
+                                <th><?= $block->escapeHtml(__('SubTotal')) ?></th>
+                                <td><?= /* @noEscape */ $item->getSubtotal() ?></td>
+                            </tr>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                    <?php foreach ($TradeInCollection as $item): ?>
+                        <?php if ($item->getTradeInId() == $id['trade_in_id']): ?>
+                            <tr class="col-0">
+                                <td class="label"><strong><?= $block->escapeHtml(__('Grand Total')) ?></strong></td>
+                                <td><strong><?= /* @noEscape */ $item->getTradeinCurrencyCode().
+                                    $item->getGrandTotal() ?></strong>
+                                </td>
+                            </tr>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
