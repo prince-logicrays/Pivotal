@@ -4,45 +4,54 @@ namespace Pivotal\TradeIn\Block\Adminhtml\TradeIn\View;
 
 use Magento\Backend\Block\Template\Context;
 use Magento\Catalog\Model\ProductFactory;
-use Pivotal\TradeIn\Model\ResourceModel\TradeIn\CollectionFactory as TradeInCollection;
-use Pivotal\TradeIn\Model\ResourceModel\TradeInAddress\CollectionFactory as TradeInAddressCollection;
-use Pivotal\TradeIn\Model\ResourceModel\TradeInItem\CollectionFactory as TradeInItemCollection;
+use Pivotal\TradeIn\Model\TradeInFactory;
+use Pivotal\TradeIn\Model\TradeInAddressFactory;
+use Pivotal\TradeIn\Model\TradeInItemFactory;
+use Magento\Framework\Pricing\Helper\Data;
 
 class Info extends \Magento\Backend\Block\Template
 {
     /**
-     * @var TradeInCollection
+     * @var TradeInFactory
      */
-    public $tradeincollection;
+    public $tradeinFactory;
 
     /**
-     * @var TradeInAddressCollection
+     * @var TradeInAddressFactory
      */
-    public $tradeinaddresscollection;
+    public $tradeinaddressFactory;
 
     /**
-     * @var TradeInItemCollection
+     * @var TradeInItemFactory
      */
-    public $tradeinitemcollection;
+    public $tradeinitemFactory;
+
+    /**
+     * @var Data
+     */
+    protected $priceHelper;
 
     /**
      * @param Context $context
      * @param ProductFactory $product
-     * @param TradeInCollection $tradeincollection
-     * @param TradeInAddressCollection $tradeinaddresscollection
-     * @param TradeInItemCollection $tradeinitemcollection
+     * @param TradeInFactory $tradeinFactory
+     * @param TradeInAddressFactory $tradeinaddressFactory
+     * @param TradeInItemFactory $tradeinitemFactory
+     * @param Data $priceHelper
      */
     public function __construct(
         Context $context,
         ProductFactory $product,
-        TradeInCollection $tradeincollection,
-        TradeInAddressCollection $tradeinaddresscollection,
-        TradeInItemCollection $tradeinitemcollection
+        TradeInFactory $tradeinFactory,
+        TradeInAddressFactory $tradeinaddressFactory,
+        TradeInItemFactory $tradeinitemFactory,
+        Data $priceHelper
     ) {
         $this->product = $product;
-        $this->tradeincollection = $tradeincollection;
-        $this->tradeinaddresscollection = $tradeinaddresscollection;
-        $this->tradeinitemcollection = $tradeinitemcollection;
+        $this->tradeinFactory = $tradeinFactory;
+        $this->tradeinaddressFactory = $tradeinaddressFactory;
+        $this->tradeinitemFactory = $tradeinitemFactory;
+        $this->priceHelper = $priceHelper;
         parent::__construct($context);
     }
 
@@ -61,9 +70,12 @@ class Info extends \Magento\Backend\Block\Template
      *
      * @return array
      */
-    public function getTradeInCollection()
+    public function getTradeInFactory()
     {
-        return $this->tradeincollection->create();
+        $CurrentUrl = $this->getRequest()->getParams();
+        $TradeInFactory = $this->tradeinFactory->create()->load($CurrentUrl);
+
+        return $TradeInFactory;
     }
 
     /**
@@ -71,9 +83,12 @@ class Info extends \Magento\Backend\Block\Template
      *
      * @return array
      */
-    public function getTradeInAddressCollection()
+    public function getTradeInAddressFactory()
     {
-        return $this->tradeinaddresscollection->create();
+        $CurrentUrl = $this->getRequest()->getParams();
+        $TradeInAddressFactory =  $this->tradeinaddressFactory->create()->load($CurrentUrl);
+
+        return $TradeInAddressFactory;
     }
 
     /**
@@ -81,8 +96,22 @@ class Info extends \Magento\Backend\Block\Template
      *
      * @return array
      */
-    public function getTradeInItemCollection()
+    public function getTradeInItemFactory()
     {
-        return $this->tradeinitemcollection->create();
+        $CurrentUrl = $this->getRequest()->getParams();
+        $TradeInItemFactory = $this->tradeinitemFactory->create()->load($CurrentUrl);
+
+        return $TradeInItemFactory;
+    }
+
+    /**
+     * Get price format with currency
+     *
+     * @param price $price
+     * @return array
+     */
+    public function getFormattedPrice($price)
+    {
+        return $this->priceHelper->currency($price, true, false);
     }
 }

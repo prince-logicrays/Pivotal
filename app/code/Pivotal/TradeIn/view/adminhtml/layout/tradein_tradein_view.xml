@@ -4,6 +4,7 @@
     <body>
         <referenceContainer name="content">
             <block class="Pivotal\TradeIn\Block\Adminhtml\TradeIn\View\Info" name="tradein.view.info" template="Pivotal_TradeIn::tradein/view/info.phtml" />
+            <block class="Pivotal\TradeIn\Block\Adminhtml\TradeIn\View\BackButton" name="tradein.view.backbutton"  />
         </referenceContainer>
     </body>
 </page>
