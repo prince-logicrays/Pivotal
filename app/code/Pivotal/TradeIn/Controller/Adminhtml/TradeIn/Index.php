@@ -28,7 +28,7 @@ class Index extends \Magento\Backend\App\Action implements HttpGetActionInterfac
     }
 
     /**
-     * Grid List page.
+     * Grid List page
      *
      * @return \Magento\Backend\Model\View\Result\Page
      */
@@ -36,7 +36,7 @@ class Index extends \Magento\Backend\App\Action implements HttpGetActionInterfac
     {
         // /* @var \Magento\Backend\Model\View\Result\Page $resultPage /
         $resultPage = $this->_resultPageFactory->create();
-        $resultPage->setActiveMenu('Pivotal_TradeIn::tradein_list');
+        $resultPage->setActiveMenu('Pivotal_TradeIn::trades');
         $resultPage->getConfig()->getTitle()->prepend(__('Trade-In List'));
 
         return $resultPage;

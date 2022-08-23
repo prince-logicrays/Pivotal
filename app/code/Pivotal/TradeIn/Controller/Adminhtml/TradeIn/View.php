@@ -35,7 +35,7 @@ class View extends \Magento\Backend\App\Action implements HttpGetActionInterface
     public function execute()
     {
         $resultPage = $this->_resultPageFactory->create();
-        $resultPage->setActiveMenu('Pivotal_TradeIn::tradein_list');
+        $resultPage->setActiveMenu('Pivotal_TradeIn::trades');
         $resultPage->getConfig()->getTitle()->prepend(__('Trade-In View Page'));
 
         return $resultPage;
