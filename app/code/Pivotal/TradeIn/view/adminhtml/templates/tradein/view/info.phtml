@@ -1,6 +1,7 @@
 <?php
 $TradeInFactory = $block->getTradeInFactory();
 $TradeInAddressFactory = $block->getTradeInAddressFactory();
+$TradeInAddressShipping = $block->getTradeInAddressShipping()->getData();
 $TradeInItemFactory = $block->getTradeInItemFactory();
 $id = $block->getId();
 ?>
@@ -42,28 +43,33 @@ $id = $block->getId();
         <span class="title"><?= $block->escapeHtml(__('Address Information')) ?></span>
     </div>
     <div class="admin__page-section-content">
-            <?php if ($id['trade_in_id']): ?>
-                <div class="admin__page-section-item order-billing-address">
-                    <?php /* Billing Address */ ?>
-                    <div class="admin__page-section-item-title">
-                        <span class="title"><?= $block->escapeHtml(__('Billing Address')) ?></span>
-                    </div>
-                    <address class="admin__page-section-item-content">
-                        <?= /* @noEscape */ $TradeInAddressFactory['street'].'<br>'.$TradeInAddressFactory['city'].
-                        ', '.$TradeInAddressFactory['postcode'].'<br>'.$TradeInAddressFactory['region'] ?>
-                    </address>
+        <?php if ($id['trade_in_id']): ?>
+            <div class="admin__page-section-item order-billing-address">
+                <?php /* Billing Address */ ?>
+                <div class="admin__page-section-item-title">
+                    <span class="title"><?= $block->escapeHtml(__('Billing Address')) ?></span>
                 </div>
+                <address class="admin__page-section-item-content">
+                    <?= /* @noEscape */ $TradeInAddressFactory['street'].'<br>'.$TradeInAddressFactory['city'].
+                        ', '.$TradeInAddressFactory['postcode'].'<br>'.$TradeInAddressFactory['region'] ?>
+                </address>
+            </div>
+            <?php if ($TradeInAddressShipping): ?>
                 <div class="admin__page-section-item order-shipping-address">
                     <?php /* Shipping Address */ ?>
                     <div class="admin__page-section-item-title">
                         <span class="title"><?= $block->escapeHtml(__('Shipping Address')) ?></span>
                     </div>
                     <address class="admin__page-section-item-content">
-                        <?= /* @noEscape */ $TradeInAddressFactory['street'].'<br>'.$TradeInAddressFactory['city'].
-                        ', '.$TradeInAddressFactory['postcode'].'<br>'.$TradeInAddressFactory['region'] ?>
+                        <?= /* @noEscape */ $TradeInAddressShipping['street'].'<br>'.
+                                                $TradeInAddressShipping['city'].', '.
+                                                $TradeInAddressShipping['postcode'].'<br>'.
+                                                $TradeInAddressShipping['region']
+                        ?>
                     </address>
                 </div>
             <?php endif; ?>
+        <?php endif; ?>
     </div>
 </section>
 

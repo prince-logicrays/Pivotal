@@ -43,12 +43,12 @@ class Index extends \Magento\Backend\App\Action implements HttpGetActionInterfac
     }
     
     /**
-     * Check Pricing List Permission.
+     * Check Trade-In List Permission.
      *
      * @return bool
      */
     protected function _isAllowed()
     {
-        return true;
+        return $this->_authorization->isAllowed('Pivotal_TradeIn::tradein_list');
     }
 }

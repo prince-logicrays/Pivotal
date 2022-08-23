@@ -2,14 +2,14 @@
 
 namespace Pivotal\TradeIn\Block\Adminhtml\TradeIn\View;
 
-use Magento\Backend\Block\Template\Context;
+use Magento\Backend\Block\Widget\Context;
 use Magento\Catalog\Model\ProductFactory;
 use Pivotal\TradeIn\Model\TradeInFactory;
 use Pivotal\TradeIn\Model\TradeInAddressFactory;
 use Pivotal\TradeIn\Model\TradeInItemFactory;
 use Magento\Framework\Pricing\Helper\Data;
 
-class Info extends \Magento\Backend\Block\Template
+class Info extends \Magento\Backend\Block\Widget\Container
 {
     /**
      * @var TradeInFactory
@@ -56,6 +56,40 @@ class Info extends \Magento\Backend\Block\Template
     }
 
     /**
+     * Add back button
+     *
+     * @return string
+     */
+    protected function _construct()
+    {
+        parent::_construct();
+
+        $this->_objectId = 'trade_in_id';
+        $this->_blockGroup = 'Pivotal_TradeIn';
+        $this->_controller = 'adminhtml_TradeIn';
+        $this->_mode = 'view';
+
+        $this->addButton(
+            'tradein_backbutton',
+            [
+                'label' => __('Back'),
+                'class' => 'back',
+                'onclick' => 'setLocation(\'' . $this->getViewPageUrl() . '\')',
+            ]
+        );
+    }
+
+    /**
+     * Get view page url
+     *
+     * @return string
+     */
+    public function getViewPageUrl()
+    {
+        return $this->getUrl('tradein/tradein/index');
+    }
+
+    /**
      * Get id
      *
      * @return int
@@ -79,14 +113,30 @@ class Info extends \Magento\Backend\Block\Template
     }
 
     /**
-     * Get Trade In Address data
+     * Get Trade In Address
      *
      * @return array
      */
     public function getTradeInAddressFactory()
     {
-        $CurrentUrl = $this->getRequest()->getParams();
-        $TradeInAddressFactory =  $this->tradeinaddressFactory->create()->load($CurrentUrl);
+        $TradeInId = $this->getRequest()->getParams();
+        $TradeInAddressFactory = $this->tradeinaddressFactory->create()->getCollection()
+        ->addFieldToFilter('trade_in_id', $TradeInId)->getFirstItem();
+
+        return $TradeInAddressFactory;
+    }
+
+    /**
+     * Get Trade In Shipping Address
+     *
+     * @return array
+     */
+    public function getTradeInAddressShipping()
+    {
+        $TradeInId = $this->getRequest()->getParams();
+        $TradeInAddressFactory = $this->tradeinaddressFactory->create()->getCollection()
+        ->addFieldToFilter('trade_in_id', $TradeInId)
+        ->addFieldToFilter('address_type', 'shipping')->getFirstItem();
 
         return $TradeInAddressFactory;
     }

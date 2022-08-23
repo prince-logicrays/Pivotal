@@ -10,7 +10,7 @@ use Magento\Framework\UrlInterface;
 class Action extends Column
 {
     /** Url path */
-    public const ROW_EDIT_URL = 'tradein/tradein/view';
+    public const VIEW_PAGE_URL = 'tradein/tradein/view';
 
     /** @var UrlInterface */
     protected $_urlBuilder;
@@ -18,7 +18,7 @@ class Action extends Column
     /**
      * @var string
      */
-    private $_editUrl;
+    private $_viewUrl;
 
     /**
      * @param ContextInterface   $context
@@ -26,7 +26,7 @@ class Action extends Column
      * @param UrlInterface       $urlBuilder
      * @param array              $components
      * @param array              $data
-     * @param string             $editUrl
+     * @param string             $viewUrl
      */
     public function __construct(
         ContextInterface $context,
@@ -34,10 +34,10 @@ class Action extends Column
         UrlInterface $urlBuilder,
         array $components = [],
         array $data = [],
-        $editUrl = self::ROW_EDIT_URL
+        $viewUrl = self::VIEW_PAGE_URL
     ) {
         $this->_urlBuilder = $urlBuilder;
-        $this->_editUrl = $editUrl;
+        $this->_viewUrl = $viewUrl;
         parent::__construct($context, $uiComponentFactory, $components, $data);
     }
 
@@ -55,7 +55,7 @@ class Action extends Column
                 if (isset($item['trade_in_id'])) {
                     $item[$name]['view'] = [
                         'href' => $this->_urlBuilder->getUrl(
-                            $this->_editUrl,
+                            $this->_viewUrl,
                             ['trade_in_id' => $item['trade_in_id']]
                         ),
                         'label' => __('View'),

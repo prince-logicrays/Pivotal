@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Ui/etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
@@ -73,26 +72,19 @@
                     <item name="indexField" xsi:type="string">trade_in_id</item>
                 </item>
             </argument>
-           <!--  <action name="delete">
+            <action name="delete">
                 <argument name="data" xsi:type="array">
                     <item name="config" xsi:type="array">
                         <item name="type" xsi:type="string">delete</item>
                         <item name="label" xsi:type="string" translate="true">Delete</item>
-                        <item name="url" xsi:type="url" path="tradeinpricing/tradeinpricing/massdelete"/>
+                        <item name="url" xsi:type="url" path="tradein/tradein/massdelete"/>
                         <item name="confirm" xsi:type="array">
                             <item name="title" xsi:type="string" translate="true">Delete</item>
                             <item name="message" xsi:type="string" translate="true">Do you want to delete selected row record?</item>
                         </item>
                     </item>
                 </argument>
-            </action> -->
-         <!--    <action name="change_status">
-                <settings>
-                    <type>change_status</type>
-                    <label translate="true">Change Status</label>
-                    <actions class="Pivotal\TradeInPricing\Ui\Component\MassAction\Status\Options"/>
-                </settings>
-            </action> -->
+            </action>
         </massaction>
         <paging name="listing_paging">
             <argument name="data" xsi:type="array">
@@ -107,33 +99,6 @@
         </paging>
     </container>
     <columns name="tradein_columns">
-       <!--  <settings>
-            <editorConfig>
-                <param name="clientConfig" xsi:type="array">
-                    <item name="saveUrl" xsi:type="url" path="tradeinpricing/tradeinpricing/inlineedit"/>
-                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
-                </param>
-                <param name="indexField" xsi:type="string">
-                    trade_in_id
-                </param>
-                <param name="enabled" xsi:type="boolean">
-                    true
-                </param>
-                <param name="selectProvider" xsi:type="string">
-                    tradein_list.tradein_list.tradein_columns.ids
-                </param>
-            </editorConfig>
-            <childDefaults>
-                <param name="fieldAction" xsi:type="array">
-                    <item name="provider" xsi:type="string">tradein_list.tradein_list.tradein_columns_editor</item>
-                    <item name="target" xsi:type="string">startEdit</item>
-                    <item name="params" xsi:type="array">
-                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
-                        <item name="1" xsi:type="boolean">true</item>
-                    </item>
-                </param>
-            </childDefaults>
-        </settings> -->
         <selectionsColumn name="ids">
            <argument name="data" xsi:type="array">
                <item name="config" xsi:type="array">
@@ -147,14 +112,8 @@
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
-                    <!-- <item name="editor" xsi:type="array">
-                        <item name="editorType" xsi:type="string">text</item>
-                        <item name="validation" xsi:type="array">
-                            <item name="required-entry" xsi:type="boolean">true</item>
-                        </item>
-                    </item> -->
                     <item name="filter" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">firstname</item>
+                    <item name="label" xsi:type="string" translate="true">First Name</item>
                 </item>
             </argument>
        </column>
@@ -162,17 +121,8 @@
            <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                 <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
-            <!--     <item name="editor" xsi:type="array">
-                    <item name="editorType" xsi:type="string">text</item>
-                    <item name="validation" xsi:type="array">
-                        <item name="validate-digits" xsi:type="boolean">true</item>
-                        <item name="required-entry" xsi:type="boolean">true</item>
-                        <item name="no-whitespace" xsi:type="boolean">true</item>
-                        <item name="validate-digits-range" xsi:type="string">1-100</item>
-                    </item>
-                </item> -->
                    <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">lastname</item>
+                   <item name="label" xsi:type="string" translate="true">Last Name</item>
                </item>
            </argument>
        </column>
@@ -181,7 +131,7 @@
                 <item name="config" xsi:type="array">
                 <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
                    <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">email</item>
+                   <item name="label" xsi:type="string" translate="true">Email</item>
                </item>
            </argument>
        </column>
@@ -190,7 +140,7 @@
                 <item name="config" xsi:type="array">
                 <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
                    <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">phoneNumber</item>
+                   <item name="label" xsi:type="string" translate="true">Phone Number</item>
                </item>
            </argument>
        </column>
@@ -199,7 +149,7 @@
                 <item name="config" xsi:type="array">
                 <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
                    <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">shippingMethodCode</item>
+                   <item name="label" xsi:type="string" translate="true">Shipping Method Code</item>
                </item>
            </argument>
        </column>
@@ -208,7 +158,7 @@
                 <item name="config" xsi:type="array">
                 <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
                    <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">shippingMethodTitle</item>
+                   <item name="label" xsi:type="string" translate="true">Shipping Method Title</item>
                </item>
            </argument>
        </column>
@@ -216,8 +166,8 @@
            <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                 <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
-                   <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">collectionDate</item>
+                   <item name="filter" xsi:type="string">dateRange</item>
+                   <item name="label" xsi:type="string" translate="true">Collection Date</item>
                </item>
            </argument>
        </column>
@@ -226,7 +176,7 @@
                 <item name="config" xsi:type="array">
                 <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
                    <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">numberOfParcels</item>
+                   <item name="label" xsi:type="string" translate="true">Number Of Parcels</item>
                </item>
            </argument>
        </column>
@@ -235,70 +185,43 @@
                 <item name="config" xsi:type="array">
                 <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
                    <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">arrangeFreeShipping</item>
+                   <item name="label" xsi:type="string" translate="true">Arrange Free Shipping</item>
                </item>
            </argument>
        </column>
-         <column name="grand_total" >
+         <column name="grand_total" class="Pivotal\TradeIn\Ui\Component\Listing\Column\Price">
            <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                 <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
                    <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">grandTotal</item>
+                   <item name="label" xsi:type="string" translate="true">Grand Total</item>
                </item>
            </argument>
        </column>
-        <!-- <column name="tradein_currency_code" >
-           <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
-                   <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">tradeinCurrencyCode</item>
-               </item>
-           </argument>
-       </column> -->
          <column name="total_item_count" >
            <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                 <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
                    <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">totalItemCount</item>
+                   <item name="label" xsi:type="string" translate="true">Total Item Count</item>
                </item>
            </argument>
        </column>
-         <!-- <column name="store_id" >
-           <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
-                   <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">storeId</item>
-               </item>
-           </argument>
-       </column> -->
          <column name="store_name" >
            <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                 <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
                    <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">storeName</item>
+                   <item name="label" xsi:type="string" translate="true">Store Name</item>
                </item>
            </argument>
        </column>
-         <!-- <column name="website_id" >
-           <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
-                   <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">websiteId</item>
-               </item>
-           </argument>
-       </column> -->
         <column name="remote_ip" >
            <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                 <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
                    <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">remoteIp</item>
+                   <item name="label" xsi:type="string" translate="true">Remote Ip</item>
                </item>
            </argument>
        </column>
@@ -306,12 +229,11 @@
            <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                 <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
-                   <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">createdAt</item>
+                   <item name="filter" xsi:type="string">dateRange</item>
+                   <item name="label" xsi:type="string" translate="true">Created At</item>
                </item>
            </argument>
        </column>
-
       <actionsColumn name="actions" class="Pivotal\TradeIn\Ui\Component\Listing\TradeIn\Column\Action">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -321,6 +243,5 @@
                 </item>
                 </argument>
         </actionsColumn>
-
     </columns>
 </listing>

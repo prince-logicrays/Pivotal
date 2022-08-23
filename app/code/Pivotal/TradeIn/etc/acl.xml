@@ -3,23 +3,14 @@
 	<acl>
 		<resources>
 			<resource id="Magento_Backend::admin">
-				<resource id="Pivotal_TradeIn::trade_in" title="trade_in" sortOrder="10">
-					<resource id="Pivotal_TradeIn::trade_in_save" title="Save trade_in" sortOrder="10"/>
-					<resource id="Pivotal_TradeIn::trade_in_delete" title="Delete trade_in" sortOrder="20"/>
-					<resource id="Pivotal_TradeIn::trade_in_update" title="Update trade_in" sortOrder="30"/>
-					<resource id="Pivotal_TradeIn::trade_in_view" title="View trade_in" sortOrder="40"/>
-				</resource>
-				<resource id="Pivotal_TradeIn::trade_in_item" title="trade_in_item" sortOrder="10">
-					<resource id="Pivotal_TradeIn::trade_in_item_save" title="Save trade_in_item" sortOrder="10"/>
-					<resource id="Pivotal_TradeIn::trade_in_item_delete" title="Delete trade_in_item" sortOrder="20"/>
-					<resource id="Pivotal_TradeIn::trade_in_item_update" title="Update trade_in_item" sortOrder="30"/>
-					<resource id="Pivotal_TradeIn::trade_in_item_view" title="View trade_in_item" sortOrder="40"/>
-				</resource>
-				<resource id="Pivotal_TradeIn::trade_in_address" title="trade_in_address" sortOrder="10">
-					<resource id="Pivotal_TradeIn::trade_in_address_save" title="Save trade_in_address" sortOrder="10"/>
-					<resource id="Pivotal_TradeIn::trade_in_address_delete" title="Delete trade_in_address" sortOrder="20"/>
-					<resource id="Pivotal_TradeIn::trade_in_address_update" title="Update trade_in_address" sortOrder="30"/>
-					<resource id="Pivotal_TradeIn::trade_in_address_view" title="View trade_in_address" sortOrder="40"/>
+				<resource id="Pivotal_TradeInPricing::pivotal" title="Pivotal" sortOrder="10">
+				    <resource id="Pivotal_TradeInPricing::trade_in" title="Trade-In" translate="title" sortOrder="10" >
+						<resource id="Pivotal_TradeIn::trades" title="Trades" sortOrder="20">
+							<resource id="Pivotal_TradeIn::tradein_list" title="List trade_in" sortOrder="10"/>
+							<resource id="Pivotal_TradeIn::trade_in_massdelete" title="Mass Delete trade_in" sortOrder="20"/>
+							<resource id="Pivotal_TradeIn::trade_in_view" title="View trade_in" sortOrder="30"/>
+						</resource>
+					</resource>
 				</resource>
 			</resource>
 		</resources>

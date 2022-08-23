@@ -42,12 +42,12 @@ class View extends \Magento\Backend\App\Action implements HttpGetActionInterface
     }
 
     /**
-     * Check View Permission.
+     * Check view page Permission.
      *
      * @return bool
      */
     protected function _isAllowed()
     {
-        return true;
+        return $this->_authorization->isAllowed('Pivotal_TradeIn::trade_in_view');
     }
 }

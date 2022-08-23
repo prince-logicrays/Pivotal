@@ -5,6 +5,5 @@
           <add id="Pivotal_TradeInPricing::pivotal" title="Pivotal" translate="title" module="Pivotal_TradeInPricing" sortOrder="40" resource="Pivotal_TradeInPricing::pivotal"/>
           <add id="Pivotal_TradeInPricing::trade_in" title="Trade-In" module="Pivotal_TradeInPricing" sortOrder="40" parent="Pivotal_TradeInPricing::pivotal" resource="Pivotal_TradeInPricing::trade_in"/>
           <add id="Pivotal_TradeInPricing::pricing_list" title="Pricing" module="Pivotal_TradeInPricing" sortOrder="30" parent="Pivotal_TradeInPricing::trade_in" action="tradeinpricing/tradeinpricing/index" resource="Pivotal_TradeInPricing::pricing_list"/>
-          <!-- <add id="Pivotal_TradeIn::trades" title="Trades" module="Pivotal_TradeIn" sortOrder="30" parent="Pivotal_TradeInPricing::trade_in" action="tradein/tradein/index" resource="Pivotal_TradeIn::trades"/> -->
      </menu>
 </config>
