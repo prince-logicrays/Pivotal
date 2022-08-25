@@ -3,11 +3,11 @@
 namespace Pivotal\TradeIn\Block\Adminhtml\TradeIn\View;
 
 use Magento\Backend\Block\Widget\Context;
-use Magento\Catalog\Model\ProductFactory;
 use Pivotal\TradeIn\Model\TradeInFactory;
 use Pivotal\TradeIn\Model\TradeInAddressFactory;
 use Pivotal\TradeIn\Model\TradeInItemFactory;
 use Magento\Framework\Pricing\Helper\Data;
+use Magento\Store\Model\StoreManagerInterface;
 
 class Info extends \Magento\Backend\Block\Widget\Container
 {
@@ -32,26 +32,31 @@ class Info extends \Magento\Backend\Block\Widget\Container
     protected $priceHelper;
 
     /**
+     * @var StoreManagerInterface
+     */
+    private $storeManager;
+
+    /**
      * @param Context $context
-     * @param ProductFactory $product
      * @param TradeInFactory $tradeinFactory
      * @param TradeInAddressFactory $tradeinaddressFactory
      * @param TradeInItemFactory $tradeinitemFactory
      * @param Data $priceHelper
+     * @param StoreManagerInterface $storeManager
      */
     public function __construct(
         Context $context,
-        ProductFactory $product,
         TradeInFactory $tradeinFactory,
         TradeInAddressFactory $tradeinaddressFactory,
         TradeInItemFactory $tradeinitemFactory,
-        Data $priceHelper
+        Data $priceHelper,
+        StoreManagerInterface $storeManager
     ) {
-        $this->product = $product;
         $this->tradeinFactory = $tradeinFactory;
         $this->tradeinaddressFactory = $tradeinaddressFactory;
         $this->tradeinitemFactory = $tradeinitemFactory;
         $this->priceHelper = $priceHelper;
+        $this->storeManager = $storeManager;
         parent::__construct($context);
     }
 
@@ -96,7 +101,7 @@ class Info extends \Magento\Backend\Block\Widget\Container
      */
     public function getId()
     {
-        return $this->getRequest()->getParams();
+        return $this->getRequest()->getParam("trade_in_id");
     }
 
     /**
@@ -104,12 +109,11 @@ class Info extends \Magento\Backend\Block\Widget\Container
      *
      * @return array
      */
-    public function getTradeInFactory()
+    public function getTradeInData()
     {
-        $CurrentUrl = $this->getRequest()->getParams();
-        $TradeInFactory = $this->tradeinFactory->create()->load($CurrentUrl);
-
-        return $TradeInFactory;
+        $tradeInId = $this->getId();
+        $tradeInData = $this->tradeinFactory->create()->load($tradeInId);
+        return $tradeInData;
     }
 
     /**
@@ -117,13 +121,16 @@ class Info extends \Magento\Backend\Block\Widget\Container
      *
      * @return array
      */
-    public function getTradeInAddressFactory()
+    public function getTradeInBillingAddress()
     {
-        $TradeInId = $this->getRequest()->getParams();
-        $TradeInAddressFactory = $this->tradeinaddressFactory->create()->getCollection()
-        ->addFieldToFilter('trade_in_id', $TradeInId)->getFirstItem();
+        $tradeInId = $this->getId();
+        $tradeInBillingAddress = $this->tradeinaddressFactory->create()
+                                ->getCollection()
+                                ->addFieldToFilter('trade_in_id', $tradeInId)
+                                ->addFieldToFilter('address_type', 'billing')
+                                ->getFirstItem();
 
-        return $TradeInAddressFactory;
+        return $tradeInBillingAddress;
     }
 
     /**
@@ -131,14 +138,16 @@ class Info extends \Magento\Backend\Block\Widget\Container
      *
      * @return array
      */
-    public function getTradeInAddressShipping()
+    public function getTradeInShippingAddress()
     {
-        $TradeInId = $this->getRequest()->getParams();
-        $TradeInAddressFactory = $this->tradeinaddressFactory->create()->getCollection()
-        ->addFieldToFilter('trade_in_id', $TradeInId)
-        ->addFieldToFilter('address_type', 'shipping')->getFirstItem();
+        $tradeInId = $this->getId();
+        $tradeInShippingAddress = $this->tradeinaddressFactory->create()
+                                ->getCollection()
+                                ->addFieldToFilter('trade_in_id', $tradeInId)
+                                ->addFieldToFilter('address_type', 'shipping')
+                                ->getFirstItem();
 
-        return $TradeInAddressFactory;
+        return $tradeInShippingAddress;
     }
 
     /**
@@ -146,19 +155,38 @@ class Info extends \Magento\Backend\Block\Widget\Container
      *
      * @return array
      */
-    public function getTradeInItemFactory()
+    public function getTradeInItems()
     {
-        $CurrentUrl = $this->getRequest()->getParams();
-        $TradeInItemFactory = $this->tradeinitemFactory->create()->load($CurrentUrl);
+        $tradeInId = $this->getId();
+        $tradeInShippingAddress = $this->tradeinitemFactory->create()
+                                ->getCollection()
+                                ->addFieldToFilter('trade_in_id', $tradeInId);
 
-        return $TradeInItemFactory;
+        return $tradeInShippingAddress;
+    }
+
+    /**
+     * Get website and store name by id
+     *
+     * @return array
+     */
+    public function getStore()
+    {
+        $storeId = $this->getTradeInData()->getStoreId();
+        if ($storeId === null) {
+            $deleted = __(' [deleted]');
+            return nl2br($this->getTradeInData()->getStoreName()) . $deleted;
+        }
+            $store = $this->_storeManager->getStore($storeId);
+            $name = [$store->getWebsite()->getName(), $store->getGroup()->getName(), $store->getName()];
+            return implode('<br/>', $name);
     }
 
     /**
      * Get price format with currency
      *
-     * @param price $price
-     * @return array
+     * @param float $price
+     * @return string
      */
     public function getFormattedPrice($price)
     {

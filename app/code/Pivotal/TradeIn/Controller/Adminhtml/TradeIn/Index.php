@@ -16,8 +16,8 @@ class Index extends \Magento\Backend\App\Action implements HttpGetActionInterfac
     protected $_resultPageFactory;
 
     /**
-     * @param \Magento\Backend\App\Action\Context $context
-     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
+     * @param Context $context
+     * @param PageFactory $resultPageFactory
      */
     public function __construct(
         Context $context,
@@ -34,11 +34,9 @@ class Index extends \Magento\Backend\App\Action implements HttpGetActionInterfac
      */
     public function execute()
     {
-        // /* @var \Magento\Backend\Model\View\Result\Page $resultPage /
         $resultPage = $this->_resultPageFactory->create();
         $resultPage->setActiveMenu('Pivotal_TradeIn::trades');
         $resultPage->getConfig()->getTitle()->prepend(__('Trade-In List'));
-
         return $resultPage;
     }
     

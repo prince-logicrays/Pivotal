@@ -1,143 +1,221 @@
 <?php
-$TradeInFactory = $block->getTradeInFactory();
-$TradeInAddressFactory = $block->getTradeInAddressFactory();
-$TradeInAddressShipping = $block->getTradeInAddressShipping()->getData();
-$TradeInItemFactory = $block->getTradeInItemFactory();
+$tradeInData = $block->getTradeInData();
+$tradeInBillingAddress = $block->getTradeInBillingAddress();
+$tradeInShippingAddress = $block->getTradeInShippingAddress();
+$tradeInItems = $block->getTradeInItems();
 $id = $block->getId();
 ?>
 
-<section class="admin__page-section order-view-account-information">
-    <div class="admin__page-section-title">
-        <span class="title"><?= $block->escapeHtml(__('Trade-In Information')) ?></span>
-    </div>
-    <div class="admin__page-section-content">
-        <div class="admin__page-section-item order-information">
-            <div class="admin__page-section-item-content">
-                <table class="admin__table-secondary order-information-table">
-                        <?php if ($id['trade_in_id']): ?>
-                            <tr>
-                                <th><?= $block->escapeHtml(__('First Name')) ?></th>
-                                <td><?=  /* @noEscape */ $TradeInFactory['firstname'] ?></td>
-                            </tr>
-                            <tr>
-                                <th><?= $block->escapeHtml(__('Last Name')) ?></th>
-                                <td><?= /* @noEscape */  $TradeInFactory['lastname'] ?></td>
-                            </tr>
-                            <tr>
-                                <th><?= $block->escapeHtml(__('Email')) ?></th>
-                                <td><?= /* @noEscape */  $TradeInFactory['email'] ?></td>
-                            </tr>
-                            <tr>
-                                <th><?= $block->escapeHtml(__('Phone Number')) ?></th>
-                                <td><?= /* @noEscape */  $TradeInFactory['phone_number'] ?></td>
-                            </tr>
-                        <?php endif; ?>
-                </table>
+<?php if ($tradeInData): ?>
+    <section class="admin__page-section order-view-account-information">
+        <div class="admin__page-section-title">
+            <span class="title"><?= $block->escapeHtml(__('Trade-In & Account Information')) ?></span>
+        </div>
+        <div class="admin__page-section-content">
+            <div class="admin__page-section-item order-information">
+                <div class="admin__page-section-item-title">
+                    <span class="title">
+                        <?= $block->escapeHtml(__('Trade-In ID: #'.$id)) ?>
+                    </span>
+                </div>
+                <div class="admin__page-section-item-content">
+                    <table class="admin__table-secondary order-account-information-table">
+                        <tr>
+                            <th><?= $block->escapeHtml(__('Created Date')) ?></th>
+                            <td><?=  /* @noEscape */ $tradeInData['created_at'] ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= $block->escapeHtml(__('Collection Date')) ?></th>
+                            <td><?=  /* @noEscape */ $tradeInData['collection_date'] ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= $block->escapeHtml(__('Purchased From')) ?></th>
+                            <td><?=  /* @noEscape */ $block->getStore() ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= $block->escapeHtml(__('Remote IP')) ?></th>
+                            <td><?=  /* @noEscape */ $tradeInData['remote_ip'] ?></td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-        </div> 
+            <div class="admin__page-section-item order-account-information">
+                <?php /* Account Information */ ?>
+                <div class="admin__page-section-item-title">
+                    <span class="title"><?= $block->escapeHtml(__('Account Information')) ?></span>
+                    <div class="actions">
+                    </div>
+                </div>
+                <div class="admin__page-section-item-content">
+                    <table class="admin__table-secondary order-information-table">
+                        <tr>
+                            <th><?= $block->escapeHtml(__('First Name')) ?></th>
+                            <td><?=  /* @noEscape */ $tradeInData['firstname'] ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= $block->escapeHtml(__('Last Name')) ?></th>
+                            <td><?= /* @noEscape */  $tradeInData['lastname'] ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= $block->escapeHtml(__('Email')) ?></th>
+                            <td><a href="mailto:<?= /* @noEscape */  $tradeInData['email'] ?>">
+                                <?= /* @noEscape */  $tradeInData['email'] ?></a></td>
+                        </tr>
+                        <tr>
+                            <th><?= $block->escapeHtml(__('Phone Number')) ?></th>
+                            <td><a href="tel:<?= /* @noEscape */  $tradeInData['phone_number'] ?>">
+                            <?= /* @noEscape */  $tradeInData['phone_number'] ?></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-</section>
+    </section>
+<?php endif; ?>
 
-<section class="admin__page-section order-addresses">
-    <div class="admin__page-section-title">
-        <span class="title"><?= $block->escapeHtml(__('Address Information')) ?></span>
-    </div>
-    <div class="admin__page-section-content">
-        <?php if ($id['trade_in_id']): ?>
+<?php if ($tradeInBillingAddress->getData()): ?>
+    <section class="admin__page-section order-addresses">
+        <div class="admin__page-section-title">
+            <span class="title"><?= $block->escapeHtml(__('Address Information')) ?></span>
+        </div>
+        <div class="admin__page-section-content">
             <div class="admin__page-section-item order-billing-address">
                 <?php /* Billing Address */ ?>
                 <div class="admin__page-section-item-title">
                     <span class="title"><?= $block->escapeHtml(__('Billing Address')) ?></span>
                 </div>
                 <address class="admin__page-section-item-content">
-                    <?= /* @noEscape */ $TradeInAddressFactory['street'].'<br>'.$TradeInAddressFactory['city'].
-                        ', '.$TradeInAddressFactory['postcode'].'<br>'.$TradeInAddressFactory['region'] ?>
+                    <?= /* @noEscape */ $tradeInData['firstname'].' '.
+                                        $tradeInData['lastname'].'<br>'.
+                                        $tradeInBillingAddress['street'].'<br>'.
+                                        $tradeInBillingAddress['city'].', '.
+                                        $tradeInBillingAddress['postcode'].'<br>'.
+                                        $tradeInBillingAddress['region'] ?>
                 </address>
             </div>
-            <?php if ($TradeInAddressShipping): ?>
+            <?php if ($tradeInShippingAddress): ?>
                 <div class="admin__page-section-item order-shipping-address">
                     <?php /* Shipping Address */ ?>
                     <div class="admin__page-section-item-title">
                         <span class="title"><?= $block->escapeHtml(__('Shipping Address')) ?></span>
                     </div>
                     <address class="admin__page-section-item-content">
-                        <?= /* @noEscape */ $TradeInAddressShipping['street'].'<br>'.
-                                                $TradeInAddressShipping['city'].', '.
-                                                $TradeInAddressShipping['postcode'].'<br>'.
-                                                $TradeInAddressShipping['region']
+                        <?= /* @noEscape */ $tradeInData['firstname'].' '.
+                                            $tradeInData['lastname'].'<br>'.
+                                            $tradeInShippingAddress['street'].'<br>'.
+                                            $tradeInShippingAddress['city'].', '.
+                                            $tradeInShippingAddress['postcode'].'<br>'.
+                                            $tradeInShippingAddress['region']
                         ?>
                     </address>
                 </div>
             <?php endif; ?>
-        <?php endif; ?>
-    </div>
-</section>
+        </div>
+    </section>
+<?php endif; ?>
 
-<section class="admin__page-section">
-    <div class="admin__page-section-title">
-        <span class="title"><?= $block->escapeHtml(__('Items Ordered')) ?></span>
-    </div>
-    <div class="admin__table-wrapper">
-        <table class="data-table admin__table-primary edit-order-table" id="my-orders-table">
-            <thead>
-                <tr class="headings">
-                    <th scope="col" class="col-product-name"><?= $block->escapeHtml(__('Product Name')) ?></th></n>
-                    <th scope="col" class="col-price"><?= $block->escapeHtml(__('Price')) ?></th>
-                    <th scope="col" class="col-qty"><?= $block->escapeHtml(__('Qty')) ?></th>
-                    <th scope="col" class="col-condition"><?= $block->escapeHtml(__('Condition')) ?></th>
-                    <th scope="col" class="col-subtotal"><?= $block->escapeHtml(__('Subtotal')) ?></th>
-                </tr>
-            </thead>
-            <tbody class="even">
-                    <?php if ($id['trade_in_id']): ?>
+<?php if ($tradeInData->getData()): ?>
+    <section class="admin__page-section order-addresses">
+        <div class="admin__page-section-title">
+            <span class="title"><?= $block->escapeHtml(__('Shipping Information')) ?></span>
+        </div>
+        <div class="admin__page-section-content">
+            <div class="admin__page-section-item order-billing-address">
+                <div class="admin__page-section-item-content">
+                    <table class="admin__table-secondary order-account-information-table">
+                        <tr>
+                            <th><?= $block->escapeHtml(__('Shipping method title')) ?></th>
+                            <td><?=  /* @noEscape */ $tradeInData['shipping_method_title'] ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= $block->escapeHtml(__('Shipping method code')) ?></th>
+                            <td><?=  /* @noEscape */ $tradeInData['shipping_method_code'] ?></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="admin__page-section-item order-shipping-address">
+                <div class="admin__page-section-item-content">
+                    <table class="admin__table-secondary order-account-information-table">
+                        <tr>
+                            <th><?= $block->escapeHtml(__('Number of parcels')) ?></th>
+                            <td><?=  /* @noEscape */ $tradeInData['number_of_parcels'] ?></td>
+                        </tr>
+                        <tr>
+                            <th><?= $block->escapeHtml(__('Arrange free shipping')) ?></th>
+                            <td><?=  /* @noEscape */ $tradeInData['arrange_free_shipping'] ?></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+<?php endif; ?>
+
+<?php if ($tradeInItems->getData()): ?>
+    <section class="admin__page-section">
+        <div class="admin__page-section-title">
+            <span class="title"><?= $block->escapeHtml(__('Items Ordered')) ?></span>
+        </div>
+        <div class="admin__table-wrapper">
+            <table class="data-table admin__table-primary edit-order-table" id="my-orders-table">
+                <thead>
+                    <tr class="headings">
+                        <th scope="col" class="col-product-name"><?= $block->escapeHtml(__('Product Name')) ?></th></n>
+                        <th scope="col" class="col-price"><?= $block->escapeHtml(__('Price')) ?></th>
+                        <th scope="col" class="col-qty"><?= $block->escapeHtml(__('Qty')) ?></th>
+                        <th scope="col" class="col-condition"><?= $block->escapeHtml(__('Condition')) ?></th>
+                        <th scope="col" class="col-subtotal"><?= $block->escapeHtml(__('Subtotal')) ?></th>
+                    </tr>
+                </thead>
+                <tbody class="even">
+                    <?php foreach ($tradeInItems as $items): ?>
                         <tr>
                             <td data-th="<?= $block->escapeHtml(__('Product Name')) ?>" class="col product_name">
-                                <?= /* @noEscape */ $TradeInItemFactory['product_name'] ?>
+                                <?= /* @noEscape */ $items['product_name'] ?><br>SKU:
+                                <?= /* @noEscape */ $items['sku'] ?>
                             </td>
-                            <?php $price = /* @noEscape */ $TradeInItemFactory['price'] ?>
+                            <?php $price = /* @noEscape */ $items['price'] ?>
                             <td data-th="<?= $block->escapeHtml(__('Price')) ?>" class="col price">
                                 <?= /* @noEscape */ $block->getFormattedPrice($price);?>
                             </td> 
                             <td data-th="<?= $block->escapeHtml(__('Qty')) ?>" class="col qty">
-                                <?= /* @noEscape */ $TradeInItemFactory['qty'] ?>
+                                <?= /* @noEscape */ $items['qty'] ?>
                             </td>
                             <td data-th="<?= $block->escapeHtml(__('Condition')) ?>" class="col condition">
-                                <?= /* @noEscape */ $TradeInItemFactory['condition'] ?>
+                                <?= /* @noEscape */ $items['condition'] ?>
                             </td>
-                            <?php $SubTotal = /* @noEscape */ $TradeInItemFactory['subtotal'] ?>
+                            <?php $SubTotal = /* @noEscape */ $items['subtotal'] ?>
                             <td data-th="<?= $block->escapeHtml(__('Subtotal')) ?>" class="col subtotal">
                             <?= /* @noEscape */ $block->getFormattedPrice($SubTotal);?>
                             </td>
                         </tr>
-                    <?php endif; ?>
-            </tbody>
-        </table>
-    </div>
-</section>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </section>
+<?php endif; ?>
 
-<section class="admin__page-section">
-    <div class="admin__page-section-title">
-        <span class="title"><?= $block->escapeHtml(__('Order Total')) ?></span>
-    </div>
-    <div class="admin__page-section-content">
-        <div class="admin__page-section-item order-information">
-            <div class="admin__page-section-item-content">
-                <table class="data-table admin__table-secondary order-subtotal-table">
-                        <?php if ($id['trade_in_id']): ?>
-                            <tr>
-                                <th><?= $block->escapeHtml(__('SubTotal')) ?></th>
-                                <?php $OrderSubTotal = /* @noEscape */ $TradeInItemFactory['subtotal'] ?>
-                                <td><?= /* @noEscape */ $block->getFormattedPrice($OrderSubTotal);?></td>
-                            </tr>
-                            <tr class="col-0">
-                                <td class="label"><strong><?= $block->escapeHtml(__('Grand Total')) ?></strong></td>
-                                <?php $GrandTotal = /* @noEscape */ $TradeInFactory['grand_total'] ?>
-                                <td><strong><?= /* @noEscape */ $block->getFormattedPrice($GrandTotal); ?></strong>
-                                </td>
-                            </tr>
-                        <?php endif; ?>
-                </table>
+<?php if ($tradeInData->getData()): ?>
+    <section class="admin__page-section">
+        <div class="admin__page-section-title">
+            <span class="title"><?= $block->escapeHtml(__('Order Total')) ?></span>
+        </div>
+        <div class="admin__page-section-content">
+            <div class="admin__page-section-item order-information">
+                <div class="admin__page-section-item-content">
+                    <table class="data-table admin__table-secondary order-subtotal-table">
+                        <tr class="col-0">
+                            <td class="label"><strong><?= $block->escapeHtml(__('Grand Total')) ?></strong></td>
+                            <?php $GrandTotal = /* @noEscape */ $tradeInData['grand_total'] ?>
+                            <td><strong><?= /* @noEscape */ $block->getFormattedPrice($GrandTotal); ?></strong>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+<?php endif; ?>

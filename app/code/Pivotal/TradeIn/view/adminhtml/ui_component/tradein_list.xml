@@ -1,247 +1,168 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Ui/etc/ui_configuration.xsd">
-    <argument name="data" xsi:type="array">
-        <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">tradein_list.tradein_list_data_source</item>
-            <item name="deps" xsi:type="string">tradein_list.tradein_list_data_source</item>
-        </item>
-        <item name="spinner" xsi:type="string">tradein_columns</item>
-        <item name="buttons" xsi:type="array">
-        </item>
-    </argument>
-    <dataSource name="tradein_list_data_source">
-        <argument name="dataProvider" xsi:type="configurableObject">
-            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
-            <argument name="name" xsi:type="string">tradein_list_data_source</argument>
-            <argument name="primaryFieldName" xsi:type="string">trade_in_id</argument>
-            <argument name="requestFieldName" xsi:type="string">id</argument>
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
-                </item>
-            </argument>
-        </argument>
-        <argument name="data" xsi:type="array">
-            <item name="js_config" xsi:type="array">
-                <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
-            </item>
-        </argument>
-    </dataSource>
-    <container name="listing_top">
-        <argument name="data" xsi:type="array">
-            <item name="config" xsi:type="array">
-                <item name="template" xsi:type="string">ui/grid/toolbar</item>
-                <item name="stickyTmpl" xsi:type="string">ui/grid/sticky/toolbar</item>
-            </item>
-        </argument>
-        <bookmark name="bookmarks"/>
-        <columnsControls name="columns_controls"/>
-        <filters name="listing_filters">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="columnsProvider" xsi:type="string">tradein_list.tradein_list.tradein_columns</item>
-                    <item name="storageConfig" xsi:type="array">
-                        <item name="provider" xsi:type="string">tradein_list.tradein_list.listing_top.bookmarks</item>
-                        <item name="namespace" xsi:type="string">current.filters</item>
-                    </item>
-                    <item name="templates" xsi:type="array">
-                        <item name="filters" xsi:type="array">
-                            <item name="select" xsi:type="array">
-                                <item name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</item>
-                                <item name="template" xsi:type="string">ui/grid/filters/elements/ui-select</item>
-                            </item>
-                        </item>
-                    </item>
-                    <item name="childDefaults" xsi:type="array">
-                        <item name="provider" xsi:type="string">tradein_list.tradein_list.listing_top.listing_filters</item>
-                        <item name="imports" xsi:type="array">
-                            <item name="visible" xsi:type="string">tradein_list.tradein_list.tradein_columns.${ $.index }:visible</item>
-                        </item>
-                    </item>
-                </item>
-                <item name="observers" xsi:type="array">
-                    <item name="column" xsi:type="string">column</item>
-                </item>
-            </argument>
+<?xml version="1.0" ?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">tradein_list.tradein_list_data_source</item>
+		</item>
+	</argument>
+	<settings>
+		<spinner>tradein_columns</spinner>
+		<deps>
+			<dep>tradein_list.tradein_list_data_source</dep>
+		</deps>
+	</settings>
+	<dataSource name="tradein_list_data_source" component="Magento_Ui/js/grid/provider">
+		<settings>
+			<storageConfig>
+				<param name="indexField" xsi:type="string">trade_in_id</param>
+			</storageConfig>
+			<updateUrl path="mui/index/render"/>
+		</settings>
+		<dataProvider name="tradein_list_data_source" class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+			<settings>
+				<requestFieldName>id</requestFieldName>
+				<primaryFieldName>trade_in_id</primaryFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource>
+	<listingToolbar name="listing_top">
+		<settings>
+			<sticky>true</sticky>
+		</settings>
+		<bookmark name="bookmarks"/>
+		<columnsControls name="columns_controls"/>
+		<filters name="listing_filters">
+            <filterSelect name="store_id" provider="${ $.parentName }">
+                <settings>
+                    <options class="Magento\Store\Ui\Component\Listing\Column\Store\Options"/>
+                    <caption translate="true">All Store Views</caption>
+                    <label translate="true">Purchase Point</label>
+                    <dataScope>store_id</dataScope>
+                    <imports>
+                        <link name="visible">ns = ${ $.ns }, index = ${ $.index }:visible</link>
+                    </imports>
+                </settings>
+            </filterSelect>
         </filters>
-        <massaction name="listing_massaction">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="selectProvider" xsi:type="string">tradein_list.tradein_list.tradein_columns.ids</item>
-                    <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
-                    <item name="indexField" xsi:type="string">trade_in_id</item>
-                </item>
-            </argument>
+        <massaction name="listing_massaction" component="Magento_Sales/js/grid/tree-massactions">
             <action name="delete">
-                <argument name="data" xsi:type="array">
-                    <item name="config" xsi:type="array">
-                        <item name="type" xsi:type="string">delete</item>
-                        <item name="label" xsi:type="string" translate="true">Delete</item>
-                        <item name="url" xsi:type="url" path="tradein/tradein/massdelete"/>
-                        <item name="confirm" xsi:type="array">
-                            <item name="title" xsi:type="string" translate="true">Delete</item>
-                            <item name="message" xsi:type="string" translate="true">Do you want to delete selected row record?</item>
-                        </item>
-                    </item>
-                </argument>
-            </action>
+            <settings>
+                <confirm>
+                    <message translate="true">Are you sure to delete selected items?</message>
+                    <title translate="true">Delete items</title>
+                </confirm>
+                <url path="tradein/tradein/massdelete"/>
+                <type>delete</type>
+                <label translate="true">Delete</label>
+            </settings>
+        </action>
         </massaction>
-        <paging name="listing_paging">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="storageConfig" xsi:type="array">
-                        <item name="provider" xsi:type="string">tradein_list.tradein_list.listing_top.bookmarks</item>
-                        <item name="namespace" xsi:type="string">current.paging</item>
-                    </item>
-                    <item name="selectProvider" xsi:type="string">tradein_list.tradein_list.tradein_columns.ids</item>
-                </item>
-            </argument>
-        </paging>
-    </container>
-    <columns name="tradein_columns">
-        <selectionsColumn name="ids">
-           <argument name="data" xsi:type="array">
-               <item name="config" xsi:type="array">
-                   <item name="indexField" xsi:type="string">trade_in_id</item>
-                   <item name="sorting" xsi:type="string">desc</item>
-                   <item name="sortOrder" xsi:type="number">0</item>
-                </item>
-           </argument>
-       </selectionsColumn>
-       <column name="firstname" >
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
-                    <item name="filter" xsi:type="string">text</item>
-                    <item name="label" xsi:type="string" translate="true">First Name</item>
-                </item>
-            </argument>
-       </column>
-       <column name="lastname" >
-           <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
-                   <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">Last Name</item>
-               </item>
-           </argument>
-       </column>
-        <column name="email" >
-           <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
-                   <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">Email</item>
-               </item>
-           </argument>
-       </column>
-         <column name="phone_number" >
-           <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
-                   <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">Phone Number</item>
-               </item>
-           </argument>
-       </column>
-        <column name="shipping_method_code" >
-           <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
-                   <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">Shipping Method Code</item>
-               </item>
-           </argument>
-       </column>
-         <column name="shipping_method_title" >
-           <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
-                   <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">Shipping Method Title</item>
-               </item>
-           </argument>
-       </column>
-       <column name="collection_date" >
-           <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
-                   <item name="filter" xsi:type="string">dateRange</item>
-                   <item name="label" xsi:type="string" translate="true">Collection Date</item>
-               </item>
-           </argument>
-       </column>
-       <column name="number_of_parcels" >
-           <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
-                   <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">Number Of Parcels</item>
-               </item>
-           </argument>
-       </column>
-       <column name="arrange_free_shipping" >
-           <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
-                   <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">Arrange Free Shipping</item>
-               </item>
-           </argument>
-       </column>
-         <column name="grand_total" class="Pivotal\TradeIn\Ui\Component\Listing\Column\Price">
-           <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
-                   <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">Grand Total</item>
-               </item>
-           </argument>
-       </column>
-         <column name="total_item_count" >
-           <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
-                   <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">Total Item Count</item>
-               </item>
-           </argument>
-       </column>
-         <column name="store_name" >
-           <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
-                   <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">Store Name</item>
-               </item>
-           </argument>
-       </column>
-        <column name="remote_ip" >
-           <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
-                   <item name="filter" xsi:type="string">text</item>
-                   <item name="label" xsi:type="string" translate="true">Remote Ip</item>
-               </item>
-           </argument>
-       </column>
-         <column name="created_at" >
-           <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
-                   <item name="filter" xsi:type="string">dateRange</item>
-                   <item name="label" xsi:type="string" translate="true">Created At</item>
-               </item>
-           </argument>
-       </column>
-      <actionsColumn name="actions" class="Pivotal\TradeIn\Ui\Component\Listing\TradeIn\Column\Action">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="resizeEnabled" xsi:type="boolean">false</item>
-                    <item name="resizeDefaultWidth" xsi:type="string">107</item>
-                    <item name="indexField" xsi:type="string">trade_in_id</item>
-                </item>
-                </argument>
-        </actionsColumn>
-    </columns>
+		<paging name="listing_paging"/>
+	</listingToolbar>
+	<columns name="tradein_columns">
+		<selectionsColumn name="ids">
+			<settings>
+				<indexField>trade_in_id</indexField>
+			</settings>
+		</selectionsColumn>
+        <column name="trade_in_id">
+			<settings>
+				<filter>text</filter>
+				<sorting>asc</sorting>
+				<label translate="true">ID</label>
+			</settings>
+		</column>
+        <column name="firstname">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">First Name</label>
+            </settings>
+        </column>
+        <column name="lastname">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Last Name</label>
+            </settings>
+        </column>
+        <column name="email">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Email</label>
+            </settings>
+        </column>
+        <column name="phone_number">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Phone Number</label>
+            </settings>
+        </column>
+        <column name="shipping_method_code">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Shipping Method Code</label>
+            </settings>
+        </column>
+        <column name="shipping_method_title">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Shipping Method Title</label>
+            </settings>
+        </column>
+        <column name="collection_date">
+            <settings>
+                <filter>dateRange</filter>
+                <label translate="true">Collection Date</label>
+            </settings>
+        </column>
+        <column name="number_of_parcels">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Number Of Parcels</label>
+            </settings>
+        </column>
+        <column name="arrange_free_shipping">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Arrange Free Shipping</label>
+            </settings>
+        </column>
+         <column name="arrange_free_shipping">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Arrange Free Shipping</label>
+            </settings>
+        </column>
+        <column name="grand_total" class="Pivotal\TradeIn\Ui\Component\Listing\Column\Price">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Grand Total</label>
+            </settings>
+        </column>
+        <column name="total_item_count">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Total Item Count</label>
+            </settings>
+        </column>
+        <column name="store_id" class="Magento\Store\Ui\Component\Listing\Column\Store">
+            <settings>
+                <label translate="true">Purchase Point</label>
+                <bodyTmpl>ui/grid/cells/html</bodyTmpl>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+        <column name="created_at">
+            <settings>
+                <filter>dateRange</filter>
+                <label translate="true">Created At</label>
+            </settings>
+        </column>
+		<actionsColumn name="actions" class="Pivotal\TradeIn\Ui\Component\Listing\TradeIn\Column\Action">
+			<settings>
+				<indexField>trade_in_id</indexField>
+				<resizeEnabled>false</resizeEnabled>
+				<resizeDefaultWidth>107</resizeDefaultWidth>
+			</settings>
+		</actionsColumn>
+	</columns>
 </listing>

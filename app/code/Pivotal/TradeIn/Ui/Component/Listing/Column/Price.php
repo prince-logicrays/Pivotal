@@ -20,7 +20,7 @@ class Price extends Column
     /**
      * @var Currency
      */
-    private $currency;
+    protected $currency;
 
     /**
      * Constructor
@@ -62,7 +62,6 @@ class Price extends Column
                     ->format($item[$this->getData('name')], [], false);
             }
         }
-
         return $dataSource;
     }
 }

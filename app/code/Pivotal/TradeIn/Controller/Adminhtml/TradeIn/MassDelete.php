@@ -13,7 +13,7 @@ use Magento\Framework\App\Action\HttpPostActionInterface;
 class MassDelete extends \Magento\Backend\App\Action implements HttpPostActionInterface
 {
     /**
-     * Massactions filter.​_
+     * Massactions filter
      * @var Filter
      */
     protected $_filter;

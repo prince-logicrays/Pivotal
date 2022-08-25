@@ -11,13 +11,13 @@ use Magento\Framework\View\Result\PageFactory;
 class View extends \Magento\Backend\App\Action implements HttpGetActionInterface
 {
     /**
-     * @var \Magento\Framework\View\Result\PageFactory
+     * @var PageFactory
      */
     protected $_resultPageFactory;
 
     /**
-     * @param \Magento\Backend\App\Action\Context $context
-     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
+     * @param Context $context
+     * @param PageFactory $resultPageFactory
      */
     public function __construct(
         Context $context,
@@ -34,15 +34,15 @@ class View extends \Magento\Backend\App\Action implements HttpGetActionInterface
      */
     public function execute()
     {
+        $tradeInId = $this->getRequest()->getParam("trade_in_id");
         $resultPage = $this->_resultPageFactory->create();
         $resultPage->setActiveMenu('Pivotal_TradeIn::trades');
-        $resultPage->getConfig()->getTitle()->prepend(__('Trade-In View Page'));
-
+        $resultPage->getConfig()->getTitle()->prepend(__('Trade ID: #'.$tradeInId));
         return $resultPage;
     }
 
     /**
-     * Check view page Permission.
+     * Check view page permission
      *
      * @return bool
      */
