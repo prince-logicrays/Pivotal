@@ -186,9 +186,9 @@ $id = $block->getId();
                             <td data-th="<?= $block->escapeHtml(__('Condition')) ?>" class="col condition">
                                 <?= /* @noEscape */ $items['condition'] ?>
                             </td>
-                            <?php $SubTotal = /* @noEscape */ $items['subtotal'] ?>
+                            <?php $subTotal = /* @noEscape */ $items['subtotal'] ?>
                             <td data-th="<?= $block->escapeHtml(__('Subtotal')) ?>" class="col subtotal">
-                            <?= /* @noEscape */ $block->getFormattedPrice($SubTotal);?>
+                            <?= /* @noEscape */ $block->getFormattedPrice($subTotal);?>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -209,8 +209,8 @@ $id = $block->getId();
                     <table class="data-table admin__table-secondary order-subtotal-table">
                         <tr class="col-0">
                             <td class="label"><strong><?= $block->escapeHtml(__('Grand Total')) ?></strong></td>
-                            <?php $GrandTotal = /* @noEscape */ $tradeInData['grand_total'] ?>
-                            <td><strong><?= /* @noEscape */ $block->getFormattedPrice($GrandTotal); ?></strong>
+                            <?php $grandTotal = /* @noEscape */ $tradeInData['grand_total'] ?>
+                            <td><strong><?= /* @noEscape */ $block->getFormattedPrice($grandTotal); ?></strong>
                             </td>
                         </tr>
                     </table>
