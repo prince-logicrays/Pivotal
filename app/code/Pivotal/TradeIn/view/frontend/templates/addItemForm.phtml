@@ -9,14 +9,14 @@ $conditions = $block->getConditions();
 
 <div class="trade-in-form-add-product">
     <legend class="legend"><span><?= $block->escapeHtml(__('What are you selling?')) ?></span></legend><br />
-    <div class="field note no-label">
+    <div class="field note no-label mb-20">
         <?= $block->escapeHtml(__("Tell us a bit about the kit you're looking to sell for an instant quote.")) ?>
     </div>
     
-    <div data-role="product-search-items"></div>
+    <div data-role="product-search-items" class="mb-20"></div>
 
     <div class="field product-search-element required">
-        <div class="control">
+        <div class="control mb-20">
             <input name="product_search"
                 id="product_search"
                 value=""
@@ -28,8 +28,8 @@ $conditions = $block->getConditions();
             <div class="product-not-found error">
             </div>
         </div>
-        <div class="condition-button-main">
-            <div class="conditions-left">
+        <div class="condition-button-main mb-20">
+            <div class="conditions-left mb-20">
                 <?php if ($conditions->count() > 0):?>
                     <select name="product_conditions" class="product_conditions">
                         <option value="">Conditions</option>
@@ -42,11 +42,11 @@ $conditions = $block->getConditions();
                 <?php endif;?>
                 <div class="condition-error error"></div>
             </div>
-            <div class="condition-guide-middle">
+            <div class="condition-guide-middle mb-20">
                 <a href="<?= /*@noEscape*/ $block->getConditionGuideUrl()?>"
                     target="_blank">Condition Guide</a>
             </div>
-            <div class="add-item-btn-right">
+            <div class="add-item-btn-right mb-20">
                 <button type="button" class="add-item-btn"> Add Item</button>
             </div>
             
@@ -54,7 +54,7 @@ $conditions = $block->getConditions();
         <div class="suggestion-wrapper">
         </div>
     </div>
-    <div class="add-more-item">
+    <div class="add-more-item mb-20">
         <button type="button" class="add-more-btn"> Add more</button>
     </div>
 </div>

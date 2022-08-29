@@ -12,9 +12,9 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
     protected $_loadedData;
 
     /**
-     * @param string $name
-     * @param string $primaryFieldName
-     * @param string $requestFieldName
+     * @param name $name
+     * @param primaryFieldName $primaryFieldName
+     * @param requestFieldName $requestFieldName
      * @param CollectionFactory $collectionFactory
      * @param array $meta
      * @param array $data

@@ -4,7 +4,7 @@
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
-                <resource id="Pivotal_TradeInPricing::pivotal" title="Pivotal" sortOrder="10">
+                <resource id="Pivotal_TradeInPricing::pivotal" title="Pivotal" sortOrder="90">
                     <resource id="Pivotal_TradeInPricing::trade_in" title="Trade-In" translate="title" sortOrder="10" >
                         <resource id="Pivotal_TradeInPricing::pricing_list" title="Pricing" translate="title" sortOrder="10" >
                             <resource id="Pivotal_TradeInPricing::addform" title="Add Form" translate="title" sortOrder="10" />
@@ -14,6 +14,7 @@
                             <resource id="Pivotal_TradeInPricing::inlineedit" title="Inline Edit" translate="title" sortOrder="50" />
                             <resource id="Pivotal_TradeInPricing::save" title="Save" translate="title" sortOrder="60" />
                         </resource>
+                        <resource id="Pivotal_TradeInPricing::trades" title="Trades" sortOrder="20" />
                     </resource>
                 </resource>
             </resource>

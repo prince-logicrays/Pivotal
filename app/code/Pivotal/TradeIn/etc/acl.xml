@@ -8,7 +8,8 @@
 						<resource id="Pivotal_TradeIn::trades" title="Trades" sortOrder="20">
 							<resource id="Pivotal_TradeIn::tradein_list" title="List trade_in" sortOrder="10"/>
 							<resource id="Pivotal_TradeIn::trade_in_massdelete" title="Mass Delete trade_in" sortOrder="20"/>
-							<resource id="Pivotal_TradeIn::trade_in_view" title="View trade_in" sortOrder="30"/>
+							<resource id="Pivotal_TradeIn::trade_in_view" title="View Page trade_in" sortOrder="30"/>
+							<resource id="Pivotal_TradeIn::view_page_delete" title="Delete trade_in" sortOrder="40"/>
 						</resource>
 					</resource>
 				</resource>

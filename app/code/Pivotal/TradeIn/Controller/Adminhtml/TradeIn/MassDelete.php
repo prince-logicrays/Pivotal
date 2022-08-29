@@ -58,7 +58,7 @@ class MassDelete extends \Magento\Backend\App\Action implements HttpPostActionIn
     }
 
     /**
-     * Check Delete Permission.
+     * Check mass delete permission.
      *
      * @return bool
      */

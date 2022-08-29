@@ -17,17 +17,17 @@ $viewModel = $block->getViewModel();
         style="width:100%;">
 
         <div class="tradein-form-steps">
-            <div class="step-getin-touch" data-role="collapsible">
+            <div class="step-getin-touch step-title mb-20" data-role="collapsible">
                 <div class="step-getin-touch" data-role="trigger">
                     <h2>Get in touch</h2>
                 </div>
             </div>
-            <div class="step-get-quote" data-role="collapsible">
+            <div class="step-get-quote step-title mb-20" data-role="collapsible">
                 <div class="step-getin-touch" data-role="trigger">
                     <h2>Get quote</h2>
                 </div>
             </div>
-            <div class="step-arrange-shipping" data-role="collapsible">
+            <div class="step-arrange-shipping step-title mb-20" data-role="collapsible">
                 <div class="step-getin-touch" data-role="trigger">
                     <h2>Arrange shipping</h2>
                 </div>
@@ -41,10 +41,10 @@ $viewModel = $block->getViewModel();
                         <?= $block->escapeHtml(__("We need to capture some details from you so we can send across your quote.")) ?>
                     </div>
                     <div class="field firstname required">
-                        <label class="label" for="name"><span><?= $block->escapeHtml(__('Firstname')) ?></span></label>
+                        <label class="label" for="trade-in-firstname"><span><?= $block->escapeHtml(__('Firstname')) ?></span></label>
                         <div class="control">
                             <input name="firstname"
-                                id="firstname"
+                                id="trade-in-firstname"
                                 title="<?= $block->escapeHtmlAttr(__('Firstname')) ?>"
                                 value="<?= $block->escapeHtmlAttr($viewModel->getUserFirstName()) ?>"
                                 class="input-text"
@@ -53,10 +53,10 @@ $viewModel = $block->getViewModel();
                         </div>
                     </div>
                     <div class="field lastname required">
-                        <label class="label" for="name"><span><?= $block->escapeHtml(__('Lastname')) ?></span></label>
+                        <label class="label" for="trade-in-lastname"><span><?= $block->escapeHtml(__('Lastname')) ?></span></label>
                         <div class="control">
                             <input name="lastname"
-                                id="lastname"
+                                id="trade-in-lastname"
                                 title="<?= $block->escapeHtmlAttr(__('Lastname')) ?>"
                                 value="<?= $block->escapeHtmlAttr($viewModel->getUserLastName()) ?>"
                                 class="input-text"
@@ -65,10 +65,10 @@ $viewModel = $block->getViewModel();
                         </div>
                     </div>
                     <div class="field email required">
-                        <label class="label" for="email"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
+                        <label class="label" for="trade-in-email"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
                         <div class="control">
                             <input name="email"
-                                id="email"
+                                id="trade-in-email"
                                 title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
                                 value="<?= $block->escapeHtmlAttr($viewModel->getUserEmail()) ?>"
                                 class="input-text"
@@ -77,10 +77,10 @@ $viewModel = $block->getViewModel();
                         </div>
                     </div>
                     <div class="field phonenumber required">
-                        <label class="label" for="phonenumber"><span><?= $block->escapeHtml(__('Phone Number')) ?></span></label>
+                        <label class="label" for="trade-in-phonenumber"><span><?= $block->escapeHtml(__('Phone Number')) ?></span></label>
                         <div class="control">
                             <input name="phonenumber"
-                                id="phonenumber"
+                                id="trade-in-phonenumber"
                                 title="<?= $block->escapeHtmlAttr(__('Phone Number')) ?>"
                                 value="<?= $block->escapeHtmlAttr($viewModel->getUserTelephone()) ?>"
                                 class="input-text"
@@ -96,9 +96,10 @@ $viewModel = $block->getViewModel();
                         </div>
                     </div>
                 </fieldset>
+                
             </div>
             <div class="step-get-quote-content" data-role="content">
-                <h1>step 2 </h1>
+                <div class="trade-in-quote-items"></div>
             </div>
             <div class="step-arrange-shipping-content" data-role="content">
                 <h1>step3</h1>
@@ -121,6 +122,7 @@ $viewModel = $block->getViewModel();
         }
     }
 </script>
+
 <style>
     form.trade-in-form .control {width: 50%;}
     .product-search-item-data {
@@ -129,6 +131,40 @@ $viewModel = $block->getViewModel();
         padding: 10px;
     }
     .add-more-item{text-align: center;}
-    .add-more-btn {display: none;}
-    
+    .add-more-btn,
+    .step-get-quote-content,
+    .step-arrange-shipping-content {display: none;}
+    .tradein-form-steps .step-title {
+        display: inline-block;
+        text-align: center;
+        width: 33%;
+    }
+    .mb-20 {margin-bottom: 20px;}
+    .error {
+        color: #e02b27;
+        font-size: 1.2rem;
+        margin-top: 7px;
+    }
+    /* Step 2 */
+    tr.item-info {border-top: 1px solid #cccccc;}
+    .tradein-form-steps .step-title[aria-selected="true"] h2 {font-weight: bold;}
+    .input-group.input-group-qty {max-width: 100px;}
+    .qty-wrap {float: left;}
+    input.input-group-item-qty {
+        padding: 30.5px 0;
+        text-align: center;
+        max-width: 60px;
+        border-right: none;
+    }
+    .inc-dec-btns {
+        float: left;
+        display: grid;
+    }
+    button.inc-dec-btn {
+        border-radius: unset;
+        background: none;
+    }
+    button.item-qty-decrease.inc-dec-btn {
+        border-top: none;
+    }
 </style>

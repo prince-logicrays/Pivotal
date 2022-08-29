@@ -44,10 +44,10 @@ class Save extends \Magento\Backend\App\Action implements HttpPostActionInterfac
                 $model->load($id);
 
                 $model->setData([
-                "entity_id" => $id,
-                "product_condition" => $data['product_condition'],
-                "value" => $data['value'],
-                "status" => $data['status'],
+                    "entity_id" => $id,
+                    "product_condition" => $data['product_condition'],
+                    "value" => $data['value'],
+                    "status" => $data['status'],
                 ]);
 
                 $editData = $model->save();
@@ -57,9 +57,9 @@ class Save extends \Magento\Backend\App\Action implements HttpPostActionInterfac
                 }
             } else {
                 $model->addData([
-                "product_condition" => $data['product_condition'],
-                "value" => $data['value'],
-                "status" => $data['status'],
+                    "product_condition" => $data['product_condition'],
+                    "value" => $data['value'],
+                    "status" => $data['status'],
                 ]);
 
                 $saveData = $model->save();
@@ -71,7 +71,7 @@ class Save extends \Magento\Backend\App\Action implements HttpPostActionInterfac
         } catch (\Exception $e) {
             $this->messageManager->addError(__($e->getMessage()));
         }
-            $this->_redirect('*/*/index');
+        $this->_redirect('*/*/index');
     }
 
     /**

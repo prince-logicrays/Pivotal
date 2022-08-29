@@ -19,7 +19,7 @@
     <type name="Pivotal\TradeInPricing\Ui\Component\MassAction\Status\Options">
         <arguments>
             <argument name="data" xsi:type="array">
-                <item name="urlPath" xsi:type="string">tradeinpricing/tradeinpricing/masschangestatus</item>
+                <item name="urlPath" xsi:type="string">tradeinpricing/tradeinpricing/MassChangeStatus</item>
                 <item name="paramName" xsi:type="string">status</item>
                 <item name="confirm" xsi:type="array">
                     <item name="title" xsi:type="string" translatable="true">Change Status</item>

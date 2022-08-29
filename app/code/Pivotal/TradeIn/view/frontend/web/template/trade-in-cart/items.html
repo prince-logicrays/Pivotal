@@ -1,0 +1,133 @@
+<div class="trade-in-cart-items-data" >
+    <div class="item-data" >
+        <h1> Trade in Quote </h1>
+        <p data-grandTotal="<%- data.grandTotal %>">
+            Based on the details given, Camera world will pay you <span class="trade-in-quote-grandtotal"><%- data.grandTotalWithCurrency %></span></p>
+        <div class="cart table-wrapper">
+            <table class="cart data items table trade-in-cart-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Conditions</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <% if (data.cartItemsData.length) { %>
+                    <tbody class="cart item">
+                        <% _.each(data.cartItemsData, function(item){ %>
+                            <tr class="item-info"
+                                data-itemId="<%- item.itemId %>"
+                                data-formatted_price="<%- item.formatted_price %>"
+                                data-item_condition="<%- item.item_condition %>"
+                                data-item_condition_id="<%- item.item_condition_id %>"
+                                data-item_note="<%- item.item_note %>"
+                                data-productName="<%- item.productName %>"
+                                data-product_id="<%- item.product_id %>"
+                                data-product_price="<%- item.product_price %>"
+                                data-product_tradein_formatted_price="<%- item.product_tradein_formatted_price %>"
+                                data-product_tradein_price="<%- item.product_tradein_price %>"
+                                data-qty="<%- item.item_qty %>"
+                                data-sku="<%- item.sku %>"
+                                data-subtotal="<%- item.subtotal %>"
+                                data-subtotalWithoutCurrencySymbol="<%- item.subtotalWithoutCurrencySymbol %>"
+                                data-thumbnail_url="<%- item.thumbnail_url %>"
+                                data-product_url="<%- item.product_url %>"
+                                data-trade_in_price_value="<%- item.trade_in_price_value %>" >
+                                <td>
+                                    <img src="<%- item.thumbnail_url %>">
+                                    <% if (item.product_url) { %>
+                                        <a href="<%- item.product_url %>" target="_blank">
+                                            <span class="item-name" style="margin-left: 10px;"><%- item.productName %></span>
+                                        </a>
+                                        <% } else { %>
+                                            <span class="item-name" style="margin-left: 10px;"><%- item.productName %></span>
+                                        <% } %>
+                                </td>
+                                
+                                <td>
+                                    <%- item.item_condition %>
+                                </td>
+                                <td>
+                                    <%- item.product_tradein_formatted_price %>
+                                </td>
+                                <td>
+                                    <div class="input-group input-group-qty">
+                                        <div class="qty-wrap">
+                                            <input type="number"
+                                                name="qty"
+                                                maxlength="20"
+                                                class="input-group-item-qty"
+                                                value="<%- item.item_qty %>"
+                                                readonly >
+                                        </div>
+                                        <div class="inc-dec-btns">
+                                            <button type="button" class="item-qty-increase inc-dec-btn">
+                                                +
+                                            </button>
+                                            <button type="button" class="item-qty-decrease inc-dec-btn">
+                                                -
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="item-subtotal">
+                                    <%- item.subtotal %>
+                                </td>
+                            </tr>
+                            <% if (item.item_note.length) { %>
+                            <tr class="item-item_note" data-itemId="<%- item.itemId %>">
+                                <td colspan="5">
+                                    <%- item.item_note %>
+                                </td>
+                            </tr>
+                            <% } %>
+                            <tr class="item-actions" 
+                                data-itemId="<%- item.itemId %>"
+                                data-formatted_price="<%- item.formatted_price %>"
+                                data-item_condition="<%- item.item_condition %>"
+                                data-item_condition_id="<%- item.item_condition_id %>"
+                                data-item_note="<%- item.item_note %>"
+                                data-productName="<%- item.productName %>"
+                                data-product_id="<%- item.product_id %>"
+                                data-product_price="<%- item.product_price %>"
+                                data-product_tradein_formatted_price="<%- item.product_tradein_formatted_price %>"
+                                data-product_tradein_price="<%- item.product_tradein_price %>"
+                                data-qty="<%- item.item_qty %>"
+                                data-sku="<%- item.sku %>"
+                                data-subtotal="<%- item.subtotal %>"
+                                data-subtotalWithoutCurrencySymbol="<%- item.subtotalWithoutCurrencySymbol %>"
+                                data-thumbnail_url="<%- item.thumbnail_url %>"
+                                data-product_url="<%- item.product_url %>"
+                                data-trade_in_price_value="<%- item.trade_in_price_value %>">
+                                
+                                <td colspan="5">
+                                    <div class="actions-toolbar">
+                                        <a class="action action-edit trade-cart-edit-data-item" href="javascipt:;" title="Edit item parameters">
+                                            <span>Edit</span>
+                                        </a>
+                                        <a href="javascipt:;" title="Remove item" class="action action-delete trade-cart-remove-data-item">
+                                            <span> Remove item</span>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                <% } %>
+            </table>
+
+            <% if (data.cartItemsData.length) { %>
+                <div class="add-another-item" style="margin-top: 10px;margin-bottom: 10px;text-align: right;">
+                    <a class="trade-in-quote-add-another-item"
+                        href="javascipt:;"> + Add another item</a>
+                </div>
+                <div class="trade-cart-shipping-methods-btns">
+                    <button class="book-your-free-shipping">Book your free shipping</button>
+                    <button class="drop-off-at-one-of-our-stores">Drop off at one of our stores</button>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</div>

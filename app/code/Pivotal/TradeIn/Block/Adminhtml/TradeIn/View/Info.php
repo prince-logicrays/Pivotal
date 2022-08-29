@@ -82,6 +82,19 @@ class Info extends \Magento\Backend\Block\Widget\Container
                 'onclick' => 'setLocation(\'' . $this->getViewPageUrl() . '\')',
             ]
         );
+
+        $this->addButton(
+            'delete',
+            [
+                'label' => __('Delete'),
+                'onclick' => 'deleteConfirm(' . json_encode(__('Are you sure you want to do this?'))
+                    . ','
+                    . json_encode($this->getDeleteUrl())
+                    . ')',
+                'class' => 'scalable delete',
+                'level' => -1
+            ]
+        );
     }
 
     /**
@@ -92,6 +105,16 @@ class Info extends \Magento\Backend\Block\Widget\Container
     public function getViewPageUrl()
     {
         return $this->getUrl('tradein/tradein/index');
+    }
+
+    /**
+     * Get delete url
+     *
+     * @return string
+     */
+    public function getDeleteUrl()
+    {
+        return $this->getUrl('tradein/tradein/delete'.'/trade_in_id/'.$this->getId());
     }
 
     /**

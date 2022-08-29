@@ -125,11 +125,11 @@ $id = $block->getId();
                 <div class="admin__page-section-item-content">
                     <table class="admin__table-secondary order-account-information-table">
                         <tr>
-                            <th><?= $block->escapeHtml(__('Shipping method title')) ?></th>
+                            <th><strong><?= $block->escapeHtml(__('Shipping method title')) ?></strong></th>
                             <td><?=  /* @noEscape */ $tradeInData['shipping_method_title'] ?></td>
                         </tr>
                         <tr>
-                            <th><?= $block->escapeHtml(__('Shipping method code')) ?></th>
+                            <th><strong><?= $block->escapeHtml(__('Shipping method code')) ?></strong></th>
                             <td><?=  /* @noEscape */ $tradeInData['shipping_method_code'] ?></td>
                         </tr>
                     </table>
@@ -139,11 +139,11 @@ $id = $block->getId();
                 <div class="admin__page-section-item-content">
                     <table class="admin__table-secondary order-account-information-table">
                         <tr>
-                            <th><?= $block->escapeHtml(__('Number of parcels')) ?></th>
+                            <th><strong><?= $block->escapeHtml(__('Number of parcels')) ?></strong></th>
                             <td><?=  /* @noEscape */ $tradeInData['number_of_parcels'] ?></td>
                         </tr>
                         <tr>
-                            <th><?= $block->escapeHtml(__('Arrange free shipping')) ?></th>
+                            <th><strong><?= $block->escapeHtml(__('Arrange free shipping')) ?></strong></th>
                             <td><?=  /* @noEscape */ $tradeInData['arrange_free_shipping'] ?></td>
                         </tr>
                     </table>
@@ -162,7 +162,7 @@ $id = $block->getId();
             <table class="data-table admin__table-primary edit-order-table" id="my-orders-table">
                 <thead>
                     <tr class="headings">
-                        <th scope="col" class="col-product-name"><?= $block->escapeHtml(__('Product Name')) ?></th></n>
+                        <th scope="col" class="col-product-name"><?= $block->escapeHtml(__('Product')) ?></th></n>
                         <th scope="col" class="col-price"><?= $block->escapeHtml(__('Price')) ?></th>
                         <th scope="col" class="col-qty"><?= $block->escapeHtml(__('Qty')) ?></th>
                         <th scope="col" class="col-condition"><?= $block->escapeHtml(__('Condition')) ?></th>
