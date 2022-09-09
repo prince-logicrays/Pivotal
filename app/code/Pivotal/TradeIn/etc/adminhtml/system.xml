@@ -21,28 +21,67 @@
                 <field id="recipient_email" translate="label" type="text" sortOrder="10" showInDefault="1"
                        showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Send Emails To</label>
-                    <validate>validate-email</validate>
+                    <validate>text</validate>
                     <depends>
                         <field id="trade_in_form/trade_in/enabled">1</field>
                     </depends>
                 </field>
-                <!-- <field id="sender_email_identity" translate="label" type="select" sortOrder="20" showInDefault="1"
-                       showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Email Sender</label>
+                <field id="sender" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="3" canRestore="1">
+                    <label>Product failed email sender</label>
                     <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
                     <depends>
-                        <field id="trade_in_form/trade_in/enabled">1</field>
+                        <field id="enabled">1</field>
                     </depends>
                 </field>
-                <field id="email_template" translate="label comment" type="select" sortOrder="30" showInDefault="1"
-                       showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Email Template</label>
+                <field id="email_template" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Custom Email Template</label>
                     <comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
                     <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
                     <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="copy_to" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Order Email Copy To</label>
+                    <comment>Comma-separated.</comment>
+                    <validate>validate-emails</validate>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="free_shipping_description" translate="label" type="textarea" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Book your free shipping description</label>
+                    <depends>
                         <field id="trade_in_form/trade_in/enabled">1</field>
                     </depends>
-                </field> -->
+                    <comment><![CDATA[Trade-in form arrange shipping step: Book your free shipping description]]></comment>
+                </field>
+                <field id="instore_dropp_off_shipping_description" translate="label" type="textarea" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>In-store Dropp off shipping method description</label>
+                    <depends>
+                        <field id="trade_in_form/trade_in/enabled">1</field>
+                    </depends>
+                    <comment><![CDATA[Trade-in form arrange shipping step: Book your free shipping description]]></comment>
+                </field>
+                <field id="in_store_dropp_off_earn_extra_amount" translate="label" type="text" sortOrder="50" showInDefault="1"
+                       showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Earn extra on drop off shipping method</label>
+                    <validate>required-entry no-whitespace validate-digits validate-not-negative-number</validate>
+                    <depends>
+                        <field id="trade_in_form/trade_in/enabled">1</field>
+                    </depends>
+                    <comment><![CDATA[Enter amount in digit]]></comment>
+                </field>
+                <field id="trade_in_summary_description" translate="label" type="textarea" sortOrder="60" showInDefault="1"
+                       showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Trade-in summary description</label>
+                    <depends>
+                        <field id="trade_in_form/trade_in/enabled">1</field>
+                    </depends>
+                    <comment><![CDATA[Trade-in summary description]]></comment>
+                </field>
             </group>
         </section>
     </system>

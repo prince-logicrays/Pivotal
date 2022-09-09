@@ -2,7 +2,7 @@
 
 namespace Pivotal\TradeIn\Helper;
 
-use Magento\Contact\Model\ConfigInterface;
+use Pivotal\TradeIn\Model\ConfigInterface;
 use Magento\Customer\Api\Data\CustomerInterface;
 use Magento\Customer\Helper\View as CustomerViewHelper;
 use Magento\Framework\App\ObjectManager;
@@ -11,9 +11,10 @@ use Magento\Framework\App\Request\DataPersistorInterface;
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
     public const XML_PATH_ENABLED = ConfigInterface::XML_PATH_ENABLED;
+    public const XML_PATH_BOOK_YOUR_FREE_SHIPPING_DESCRIPTION = ConfigInterface::XML_PATH_BOOK_YOUR_FREE_SHIPPING_DESC;
 
     /**
-     * Customer session
+     * Get customer session
      *
      * @var \Magento\Customer\Model\Session
      */
@@ -58,6 +59,19 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return $this->scopeConfig->getValue(
             self::XML_PATH_ENABLED,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * Get book your free shipping description
+     *
+     * @return string|null
+     */
+    public function getBookYourFreeShippingDescription()
+    {
+        return $this->scopeConfig->getValue(
+            self::XML_PATH_BOOK_YOUR_FREE_SHIPPING_DESCRIPTION,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE
         );
     }

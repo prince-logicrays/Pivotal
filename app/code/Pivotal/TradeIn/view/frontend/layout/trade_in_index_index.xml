@@ -24,6 +24,31 @@
                 <block class="Pivotal\TradeIn\Block\TradeInForm" name="tradeIn.form.addItems" 
                         template="Pivotal_TradeIn::addItemForm.phtml">
                 </block>
+                <block class="Magento\Framework\View\Element\Template" name="tradeIn.arrange.shipping" 
+                        template="Pivotal_TradeIn::arrange-shipping/index.phtml">
+                    <block class="Pivotal\TradeIn\Block\ArrangeShipping\Address" name="tradeIn.arrange.shipping.book.free.shipping" 
+                        template="Pivotal_TradeIn::arrange-shipping/book-free-shipping.phtml">
+                        <block class="Pivotal\TradeIn\Block\ArrangeShipping\Address" name="tradeIn.free.shipping.homeaddress" 
+                            template="Pivotal_TradeIn::arrange-shipping/address-form/home-address.phtml" cacheable="false">
+                            <arguments>
+                                <argument name="attribute_data" xsi:type="object">Magento\Customer\Block\DataProviders\AddressAttributeData</argument>
+                                <argument name="post_code_config" xsi:type="object">Magento\Customer\Block\DataProviders\PostCodesPatternsAttributeData</argument>
+                                <argument name="view_model" xsi:type="object">Magento\Customer\ViewModel\Address</argument>
+                            </arguments>
+                        </block>
+                        <block class="Pivotal\TradeIn\Block\ArrangeShipping\Address" name="tradeIn.free.shipping.different.to.homeaddress" 
+                            template="Pivotal_TradeIn::arrange-shipping/address-form/different-to-home-address.phtml" cacheable="false">
+                            <arguments>
+                                <argument name="attribute_data" xsi:type="object">Magento\Customer\Block\DataProviders\AddressAttributeData</argument>
+                                <argument name="post_code_config" xsi:type="object">Magento\Customer\Block\DataProviders\PostCodesPatternsAttributeData</argument>
+                                <argument name="view_model" xsi:type="object">Magento\Customer\ViewModel\Address</argument>
+                            </arguments>
+                        </block>
+                    </block>
+                    <block class="Pivotal\TradeIn\Block\ArrangeShipping\InStoreDropOff" name="tradeIn.arrange.shipping.book.instore.dropoff.shipping" 
+                        template="Pivotal_TradeIn::arrange-shipping/book-instore-dropoff-shipping.phtml">
+                    </block>
+                </block>
             </block>
             <block class="Magento\Cms\Block\Block" name="trade-in-after-form-block" after="tradeInForm">
                 <arguments>

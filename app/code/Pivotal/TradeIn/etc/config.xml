@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <trade_in_form>
+            <trade_in>
+                <enabled>1</enabled>
+                <recipient_email><![CDATA[example@gmail.com]]></recipient_email>
+                <free_shipping_description>
+                    <![CDATA[<p>Shipping to us for trade-in is simple, free and insured.</p><p>We'll send you everything you need so you can get your gear to us fast and safe.Once it's arrived and your equipment has been checked over by one of our camera experts, you'll recieve the amount we quoted you by bank transfer in a couple of days.</p>]]>
+                </free_shipping_description>
+                <instore_dropp_off_shipping_description>
+                    <![CDATA[<p>Dropping off your gear to one of our stores for trade-in is simple. Simply turn up to one of our CameraWorld stores and your equipment will be checked over by one of our camera experts there and then, and you'll walk away with the cash.</p><p>As a thank you for dropping your used equipment directly to store, we'll add another £10 to your quoted price as a thank you.</p>]]>
+                </instore_dropp_off_shipping_description>
+                <in_store_dropp_off_earn_extra_amount>10</in_store_dropp_off_earn_extra_amount>
+                <trade_in_summary_description><![CDATA[<p>Thanks for choosing CameraWorld, please check your inbox for updates on how to prepare your equipment for trade-in.</p>]]></trade_in_summary_description>
+                <sender>general</sender>
+                <email_template>trade_in_form_trade_in_email_template</email_template>
+            </trade_in>
+        </trade_in_form>
+    </default>
+</config>

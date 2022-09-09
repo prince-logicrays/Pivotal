@@ -40,4 +40,15 @@ class Config implements ConfigInterface
             ScopeInterface::SCOPE_STORE
         );
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function getBookYourFreeShippingDescription()
+    {
+        return $this->scopeConfig->getValue(
+            self::XML_PATH_BOOK_YOUR_FREE_SHIPPING_DESC,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
 }

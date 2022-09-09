@@ -7,7 +7,6 @@ use Pivotal\TradeInPricing\Model\TradeInPricingFactory;
 
 class TradeInForm extends Template
 {
-
     /**
      * @var TradeInPricingFactory
      */

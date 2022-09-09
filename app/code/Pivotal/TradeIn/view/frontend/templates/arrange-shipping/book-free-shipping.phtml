@@ -1,0 +1,157 @@
+<?php
+/** @var \Pivotal\TradeIn\Block\ArrangeShipping\Address $block */
+/** @var Magento\Framework\Escaper $escaper */
+// phpcs:disable
+$description = $block->getBookYourFreeShippingDescription();
+$freeShippingMethods = $block->getArrangeFreeShippingMethods();
+?>
+<?php if ($description): ?>
+    <div class="shipping-description">
+        <?= html_entity_decode($escaper->escapeHtml($description)); ?>
+    </div>
+<?php endif; ?>
+<div class="home-address-wrapper">
+    <div class="home-title">
+        <h2><?= __("Home address")?></h2>
+        <p><?= __("Tell us where you would like us to collect your gear from")?></p>
+        <fieldset class="fieldset home-address">
+            <div class="field postcode required">
+                <label class="label" for="trade-in-postcode"><span><?= $block->escapeHtml(__('Postcode')) ?></span></label>
+                <div class="control">
+                    <input name="postcode"
+                        id="trade-in-postcode"
+                        title="<?= $block->escapeHtmlAttr(__('Postcode')) ?>"
+                        placeholder="<?= $block->escapeHtmlAttr(__('Postcode')) ?>"
+                        value=""
+                        class="input-text"
+                        type="text"
+                        />
+                </div>
+            </div>
+            <button class="mb-20"><?= $block->escapeHtmlAttr(__('Find Address')) ?></button>
+            <br/>
+            <a href="javascript:;" class="enter-home-address-manually">
+                <?= $block->escapeHtmlAttr(__('Enter your address manually here')) ?>
+            </a>
+            <div class="customer-home-address mt-20">
+                <?php if ($_pAddsses = $block->getCustomerAddresses()) : ?>
+                    <div class="field field-select-home-address">
+                        <div class="control">
+                            <select class="select select_home_address" name="select_home_address">
+                                <?php foreach ($_pAddsses as $data) : ?>
+                                    <option value="<?= $data['address_id'];?>"><?= $data['address'];?></option>
+                                <?php endforeach; ?>
+                                <option value="new_address">New Address</option>
+                            </select>
+                        </div>
+                    </div>
+                <?php endif ?>
+                <?= $block->getChildHtml('tradeIn.free.shipping.homeaddress')?>
+            </div>
+        </fieldset>
+    </div>
+    <div class="home-address-arrange-free-shipping">
+        <h2><?= __("Arrange Free Shipping")?></h2>
+        <p><?= __("Please select a collection or drop off method suitable for you. All services are tracked, and we'll let you know as soon as we've recieved it.");?></p>
+        <fieldset class="fieldset">
+            <div class="field select-arrange-free-shipping required">
+                <div class="control" >
+                    <?php foreach ($freeShippingMethods as $data): ?>
+                        <div class="field choice">
+                            <input type="radio"
+                                class="radio"
+                                id="<?= $block->escapeHtml($data['method_code']);?>"
+                                data-validate="{'validate-one-required-by-name':true}"
+                                name="arrange-free-shipping"
+                                value="<?= $block->escapeHtml($data['method_code']);?>"
+                                />
+                            <label class="label"
+                                for="<?= $block->escapeHtml($data['method_code']);?>">
+                                <span><?= $block->escapeHtml($data['method_title']);?></span>
+                            </label>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            <div class="field collection-date required">
+                <label class="label" for="trade-in-collection-date"><span><?= $block->escapeHtml(__('Collection Date')) ?></span></label>
+                <div class="control">
+                    <input name="collection_date"
+                        id="trade-in-collection-date"
+                        title="<?= $block->escapeHtmlAttr(__('Collection Date')) ?>"
+                        placeholder="<?= $block->escapeHtmlAttr(__('Select a date here')) ?>"
+                        value=""
+                        class="input-text"
+                        type="text"
+                        data-validate="{required:true}"
+                        />
+                </div>
+            </div>
+            <div class="field number-of-parcels required">
+                <label class="label" for="trade-in-number-of-parcels"><span><?= $block->escapeHtml(__('Number of parcels')) ?></span></label>
+                <div class="control">
+                    <input name="number_of_parcels"
+                        id="trade-in-number-of-parcels"
+                        title="<?= $block->escapeHtmlAttr(__('Number of parcels')) ?>"
+                        placeholder="<?= $block->escapeHtmlAttr(__('Number of parcels')) ?>"
+                        value=""
+                        class="input-text"
+                        type="number"
+                        data-validate="{required:true}"
+                        />
+                </div>
+            </div>
+            <div class="field select-collection-address required">
+                <label class="label" for="trade-in-number-of-parcels">
+                    <span><?= $block->escapeHtml(__('Collection Address')) ?></span>
+                </label>
+                <div class="control" >
+                    <div class="field choice">
+                        <input type="radio"
+                            class="radio"
+                            id="same_as_home_address"
+                            data-validate="{'validate-one-required-by-name':true}"
+                            name="collection-address"
+                            value="same_as_home_address" checked="checked"/>
+                        <label class="label"
+                            for="same_as_home_address">
+                            <span>Same as home address</span>
+                        </label>
+                    </div>
+                    <div class="field choice">
+                        <input type="radio"
+                            class="radio"
+                            id="different_to_home_address"
+                            data-validate="{'validate-one-required-by-name':true}"
+                            name="collection-address"
+                            value="different_to_home_address"/>
+                        <label class="label"
+                            for="different_to_home_address">
+                            <span>Different to home address</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="customer-different-address mt-20">
+                <?php if ($_pAddsses = $block->getCustomerAddresses()) : ?>
+                    <div class="field field-select-different-address">
+                        <div class="control">
+                            <select class="select select_different_address" name="select_different_address">
+                                <?php foreach ($_pAddsses as $data) : ?>
+                                    <option value="<?= $data['address_id'];?>"><?= $data['address'];?></option>
+                                <?php endforeach; ?>
+                                <option value="new_address">New Address</option>
+                            </select>
+                        </div>
+                    </div>
+                <?php endif ?>
+                <?= $block->getChildHtml('tradeIn.free.shipping.different.to.homeaddress')?>
+            </div>
+        </fieldset>
+
+        <div class="actions-toolbar">
+            <a href="javascipt:;" class="button action primary free-shipping-next-btn">Next</a>
+        </div>
+    </div>
+</div>
+

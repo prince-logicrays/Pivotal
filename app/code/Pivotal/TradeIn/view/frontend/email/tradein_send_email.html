@@ -1,0 +1,76 @@
+<!--@subject Trade-In ID #{{var id}}@-->
+
+{{template config_path="design/email/header_template"}}
+
+<table class="email-items">
+    <tr class="email-summary">
+        <td>
+            <h1>Your Order <span class="no-link">#1</span></h1>
+            <p>Placed on {{var collection_date}}</p>
+            <p>Collection Date {{var collection_date}} </p>
+        </td>
+    </tr>
+    <table class="order-details">
+        <tr>
+            <td class="address-details">
+                <h3>{{trans "Billing Info"}}</h3>
+                <p>{{var firstname}} {{var lastname}}<br>
+                    {{var home_address.street_1}}<br>
+                    {{var home_address.city}}
+                    {{var home_address.region_name}}
+                    {{var home_address.zip}}<br>
+                    {{var home_address.country_name}}<br>
+                    {{var phonenumber}}</p>
+            </td>
+            <td class="address-details">
+                <h3>{{trans "Shipping Info"}}</h3>
+                <p>{{var firstname}} {{var lastname}}<br>
+                    {{var home_address.street_1}}<br>
+                    {{var home_address.city}}
+                    {{var home_address.region_name}}
+                    {{var home_address.zip}}<br>
+                    {{var home_address.country_name}}<br>
+                    {{var phonenumber}}</p>
+            </td>
+        </tr>
+        <tr>
+            <h3>{{trans "Shipping Method"}}</h3>
+        </tr>
+        <tr>
+            <th class="item-info">
+                Number Of Parcels
+            </th>
+            <td class="method-info">
+                <p>{{var number_of_parcels}}</p>
+            </td>
+        </tr>
+        <tr>
+            <th class="item-info">
+                Arrange Free Shipping
+            </th>
+            <td class="method-info">
+                <p>{{var arrange_free_shipping}}</p>
+            </td>
+        </tr>
+        <tr>
+            <th class="item-info">
+                Shipping Method Title
+            </th>
+            <td class="method-info">
+                <p>{{var shipping_method_title}}</p>
+            </td>
+        </tr>
+        <tr>
+            <th class="item-info">
+                Shipping Method Code
+            </th>
+            <td class="method-info">
+                <p>{{var shipping_method_code}}</p>
+            </td>
+        </tr>
+    </table>
+</table>
+
+{{block class="Pivotal\TradeIn\Block\Email" items=$items name="order_sms" template="Pivotal_TradeIn::email/product.phtml" area="frontend"}}
+
+{{template config_path="design/email/footer_template"}}

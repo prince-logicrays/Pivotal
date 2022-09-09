@@ -1,0 +1,23 @@
+<div class="arrange-shipping-wrap">
+    <div class="main-title">
+        <h1>Arrange Shipping or Drop-off</h1>
+    </div>
+    <div class="select-shipping-method">
+        <div class="book-free-shipping-title arrange-shipping-title mb-20" data-role="collapsible">
+            <div class="book-free-shipping" data-role="trigger">
+                <button class="book-your-free-shipping">Book your free shipping</button>
+            </div>
+        </div>
+        <div class="book-in-store-drop-off-title arrange-shipping-title mb-20" data-role="collapsible">
+            <div class="book-in-store-drop-off" data-role="trigger">
+                <button class="book-in-store-drop-off">Book in-store drop off</button>
+            </div>
+        </div>
+        <div class="book-free-shipping-content" data-role="content">
+            <?= $block->getChildHtml('tradeIn.arrange.shipping.book.free.shipping')?>
+        </div>
+        <div class="book-in-store-drop-off-content" data-role="content">
+            <?= $block->getChildHtml('tradeIn.arrange.shipping.book.instore.dropoff.shipping')?>
+        </div>
+    </div>
+</div>

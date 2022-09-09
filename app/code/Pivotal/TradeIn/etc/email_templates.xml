@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="trade_in_form_trade_in_email_template"
+              label="Trade-In Send Email"
+              file="tradein_send_email.html" type="html"
+              module="Pivotal_TradeIn" area="frontend"/>
+</config>

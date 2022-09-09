@@ -63,7 +63,7 @@ class Product extends Action implements HttpPostActionInterface
                         ['like' => '% '.$search_text], //space before and ends with $search_text
                         ['like' => $search_text.' %'] // starts with search_text and space after
                     ]);
-        
+
         $products = [];
         foreach ($collection as $product) {
             $name = strtolower($product->getName());

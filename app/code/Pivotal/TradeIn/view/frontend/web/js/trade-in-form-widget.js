@@ -8,7 +8,8 @@ define([
     'jquery/jquery.cookie',
     'accordion',
     'jquery-ui-modules/widget',
-    'mage/validation'
+    'mage/validation',
+    'mage/calendar'
 ], function ($,
     mageTemplate,
     step1ProductSearchTemplate,
@@ -48,6 +49,19 @@ define([
             step2ItemQty:'.input-group-item-qty',
             step2IncreaseQty:'.item-qty-increase',
             step2DecreaseQty:'.item-qty-decrease',
+            step2BookFreeShippingBtn:'.trade-cart-shipping-methods-btns .book-your-free-shipping',
+            step2BookInStoreDropOffBtn:'.trade-cart-shipping-methods-btns .drop-off-at-one-of-our-stores',
+            step3ArrangeShipping: '.arrange-shipping-wrap .select-shipping-method',
+            step3BookFreeShippingBtn:'.arrange-shipping-wrap .select-shipping-method button.book-your-free-shipping',
+            step3BookInStoreDropOffBtn:'.arrange-shipping-wrap .select-shipping-method button.book-in-store-drop-off',
+            step3CollectionDate:'#trade-in-collection-date',
+            step3AddHomeAddressManually:'.enter-home-address-manually',
+            step3CollectionAddress:'input[type=radio][name=collection-address]',
+            step3SelectHomeAddress:'.customer-home-address .select_home_address',
+            step3HomeAddressCountry:'#home_address_country',
+            step3SelectDifferentHomeAddress:'.customer-different-address .select_different_address',
+            step3DifferentToHomeAddressCountry:'#different_to_home_address_country',
+            step3FreeShippingNextBtn:'a.free-shipping-next-btn'
         },
 
         /**
@@ -68,7 +82,7 @@ define([
 
             // Initialize Step1 Get In Touch
             self._initializTradeInForm();
-
+           
             /**
              * Step1 Get In Touch, form validation on click "Get my quote" button 
              * 
@@ -176,6 +190,141 @@ define([
                 event.preventDefault();
                 self._step2DecreaseQty($(event.target));
             };
+
+            /**
+             * Step2 Get quote
+             * Click on "Book your free shipping" button 
+             * Step3 active Book Free shipping method tab 
+             * 
+             * @param {jQuery.Event} event
+             */
+            events['click ' + this.options.step2BookFreeShippingBtn] =  function (event) {
+                event.preventDefault();
+                this.element.find(this.options.tradeInFormSteps).accordion("activate",2);
+                self._step3ActiveBookFreeShipping($(event.target));
+            };
+
+            /**
+             * Step2 Get quote
+             * Click on "Drop off at one of our stores" button 
+             * Step3 active Book in-store drop-off shipping method tab 
+             * 
+             * @param {jQuery.Event} event
+             */
+            events['click ' + this.options.step2BookInStoreDropOffBtn] =  function (event) {
+                event.preventDefault();
+                this.element.find(this.options.tradeInFormSteps).accordion("activate",2);
+                self._step3ActiveInStoreDropOffShipping($(event.target));
+            };
+
+            /**
+             * Step3 Arrange shipping
+             * Click on "Book your free shipping" button
+             * Active Book Free shipping method tab 
+             * 
+             * @param {jQuery.Event} event
+             */
+            events['click ' + this.options.step3BookFreeShippingBtn] =  function (event) {
+                event.preventDefault();
+                self._step3ActiveBookFreeShipping($(event.target));
+            };
+
+            /**
+             * Step3 Arrange shipping
+             * Click on "Book in-store drop off" button 
+             * Active Book in-store drop-off shipping method tab 
+             * 
+             * @param {jQuery.Event} event
+             */
+            events['click ' + this.options.step3BookInStoreDropOffBtn] =  function (event) {
+                event.preventDefault();
+                self._step3ActiveInStoreDropOffShipping($(event.target));
+            };
+
+            /**
+             * Step3 Arrange shipping
+             * Book your free shipping 
+             * Show address input form
+             * 
+             * @param {jQuery.Event} event
+             */
+            events['click ' + this.options.step3AddHomeAddressManually] =  function (event) {
+                event.preventDefault();
+                self._step3AddHomeAddressManually($(event.target));
+            };
+
+            /**
+             * Step3 Arrange shipping
+             * Book your free shipping 
+             * Select address from dropdown for customer login
+             * 
+             * @param {jQuery.Event} event
+             */
+             events['change ' + this.options.step3SelectHomeAddress] =  function (event) {
+                event.preventDefault();
+                self._step3SelectHomeAddress($(event.target));
+            };
+
+            /**
+             * Step3 Arrange shipping
+             * Book your free shipping 
+             * Home address, Get regions on change country
+             * 
+             * @param {jQuery.Event} event
+             */
+            events['change ' + this.options.step3HomeAddressCountry] =  function (event) {
+                event.preventDefault();
+                self._step3HomeAddressGetRegionsByCountry($(event.target));
+            };
+
+            /**
+             * Step3 Arrange shipping
+             * Book your free shipping 
+             * Change event of collection address
+             * 
+             * @param {jQuery.Event} event
+             */
+             events['change ' + this.options.step3CollectionAddress] =  function (event) {
+                event.preventDefault();
+                self._step3CollectionAddress($(event.target));
+            };
+
+            /**
+             * Step3 Arrange shipping
+             * Book your free shipping 
+             * Select address from dropdown for customer login
+             * 
+             * @param {jQuery.Event} event
+             */
+             events['change ' + this.options.step3SelectDifferentHomeAddress] =  function (event) {
+                event.preventDefault();
+                self._step3SelectDifferentHomeAddress($(event.target));
+            };
+
+            /**
+             * Step3 Arrange shipping
+             * Book your free shipping 
+             * Different to Home address, Get regions on change country
+             * 
+             * @param {jQuery.Event} event
+             */
+            events['change ' + this.options.step3DifferentToHomeAddressCountry] =  function (event) {
+                event.preventDefault();
+                self._step3DifferentToHomeAddressGetRegionsByCountry($(event.target));
+            };
+
+            /**
+             * Step3 Arrange shipping
+             * Book your free shipping 
+             * On click next button
+             * 
+             * @param {jQuery.Event} event
+             */
+            events['click ' + this.options.step3FreeShippingNextBtn] =  function (event) {
+                event.preventDefault();
+                self._step3FreeShipping($(event.target));
+            };
+            
             this._on(events);
         },
 
@@ -577,9 +726,10 @@ define([
          */
         _saveItemsDataInCookie : function (tradeInFormData) {
             var date = new Date();
-            var minutes = 5;
+            var minutes = 30;
             date.setTime(date.getTime() + (minutes * 60 * 1000));
             $.cookie('tradeInFormData', JSON.stringify(tradeInFormData), {expires: date}); // Set Cookie Expiry Time
+            console.log("Trade in form data will be cleared: "+ date);
         },
 
         /**
@@ -866,6 +1016,341 @@ define([
             tradeInFormData.itemsData.cartItemsData[objIndex].item_qty = parseInt(itemQty);
             this._saveItemsDataInCookie(tradeInFormData);
         },
+
+        /**
+         * Step3 Arrange shipping
+         * Active book free shipping method   
+         *
+         * @param {HTMLElement} elem
+         * @private
+         */
+        _step3ActiveBookFreeShipping: function (elem){
+            this.element.find(this.options.step3ArrangeShipping).accordion();
+            $(this.options.step3ArrangeShipping).accordion("activate",0);
+            var collection_date = this.element.find(this.options.step3CollectionDate).val();
+            if(collection_date.length == 0) {
+                this.element.find(this.options.step3CollectionDate).datetimepicker({
+                    dateFormat: 'mm/dd/yy',
+                    timeFormat: 'HH:mm:ss',
+                    changeMonth: true,
+                    changeYear: true,
+                    showsTime: true
+                });
+            }
+        },
+
+        /**
+         * Step3 Arrange shipping
+         * Active book in-store drop-off shipping method   
+         *
+         * @param {HTMLElement} elem
+         * @private
+         */
+        _step3ActiveInStoreDropOffShipping: function (elem){
+            this.element.find(this.options.step3ArrangeShipping).accordion();
+            $(this.options.step3ArrangeShipping).accordion("activate",1);
+        },
+
+        /**
+         * Step3 Arrange shipping
+         * Active book in-store drop-off shipping method   
+         *
+         * @param {HTMLElement} elem
+         * @private
+         */
+        _step3AddHomeAddressManually: function (elem){
+            elem.closest('fieldset.home-address').find('.customer-home-address').show();
+            if(elem.closest('fieldset.home-address').find('.field-select-home-address').length) {
+                elem.closest('fieldset.home-address').find('.fieldset.home-address-form').hide();
+            } else {
+                elem.closest('fieldset.home-address').find('.fieldset.home-address-form').show();
+            }
+        },
+
+        /**
+         * Step3 Arrange shipping
+         * Book your free shipping 
+         * Change event of collection address
+         *
+         * @param {HTMLElement} elem
+         * @private
+         */
+        _step3CollectionAddress: function (elem){
+            // Show address dropdown/address form
+            if(elem.val() == "different_to_home_address") {
+                elem.closest('.home-address-arrange-free-shipping').find('.customer-different-address').show();
+                if(this.element.find('.field-select-different-address').length) {
+                    this.element.find('.different-to-home-address-form').hide();
+                } else {
+                    this.element.find('.different-to-home-address-form').show();
+                }
+            } else if (elem.val() == "same_as_home_address") {
+                elem.closest('.home-address-arrange-free-shipping').find('.customer-different-address').hide();
+            }
+        },
+
+        /**
+         * Step3 Arrange shipping
+         * Book your free shipping 
+         * Select address from dropdown for customer login
+         *
+         * @param {HTMLElement} elem
+         * @private
+         */
+        _step3SelectHomeAddress: function (elem){
+            if(elem.val() == 'new_address') {
+                elem.closest('fieldset.home-address').find('.fieldset.home-address-form').show();
+            } else {
+                elem.closest('fieldset.home-address').find('.fieldset.home-address-form').hide();
+            }
+        },
+
+        /**
+         * Step3 Arrange shipping
+         * Book your free shipping 
+         * Home address, Get regions on change country
+         *
+         * @param {HTMLElement} elem
+         * @private
+         */
+        _step3HomeAddressGetRegionsByCountry: function (elem){
+            var param = 'country='+elem.val();
+            var getRegionsUrl = urlBuilder.build('trade-in/index/country');
+            $.ajax({
+                showLoader: true,
+                url: getRegionsUrl,
+                data: param,
+                type: "GET",
+            }).done(function (data) {
+                $('.home-address-form #state').empty();
+                if(data.value=='')
+                {
+                    $('.home-address-form .field.states.required').show();
+                    $('.home-address-form .field.region.required').hide();
+                } else {
+                $('.home-address-form #state').append(data.value);
+                    $('.home-address-form .field.states.required').hide();
+                    $('.home-address-form .field.region.required').show();
+                }
+            });
+        },
+
+        /**
+         * Step3 Arrange shipping
+         * Book your free shipping 
+         * Select address from dropdown for customer login
+         *
+         * @param {HTMLElement} elem
+         * @private
+         */
+        _step3SelectDifferentHomeAddress: function (elem){
+            if(elem.val() == 'new_address') {
+                elem.closest('.customer-different-address').find('.different-to-home-address-form').show();
+            } else {
+                elem.closest('.customer-different-address').find('.different-to-home-address-form').hide();
+            }
+        },
+
+        /**
+         * Step3 Arrange shipping
+         * Book your free shipping 
+         * Home address, Get regions on change country
+         *
+         * @param {HTMLElement} elem
+         * @private
+         */
+        _step3DifferentToHomeAddressGetRegionsByCountry: function (elem){
+            var param = 'country='+elem.val();
+            var getRegionsUrl = urlBuilder.build('trade-in/index/country');
+            $.ajax({
+                showLoader: true,
+                url: getRegionsUrl,
+                data: param,
+                type: "GET",
+            }).done(function (data) {
+                $('.different-to-home-address-form #state').empty();
+                if(data.value=='')
+                {
+                    $('.different-to-home-address-form .field.states.required').show();
+                    $('.different-to-home-address-form .field.region.required').hide();
+                } else {
+                $('.different-to-home-address-form #state').append(data.value);
+                    $('.different-to-home-address-form .field.states.required').hide();
+                    $('.different-to-home-address-form .field.region.required').show();
+                }
+            });
+        },
+
+        /**
+         * Step3 Arrange shipping
+         * Book your free shipping 
+         * On click next button
+         *
+         * @param {HTMLElement} elem
+         * @private
+         */
+        _step3FreeShipping: function (elem){
+            if($(this.options.tradeInForm).valid()) {
+                var tradeInFormData = $.cookie('tradeInFormData');
+                if (tradeInFormData != null) {
+                    tradeInFormData = JSON.parse(tradeInFormData);
+                    this._step3SaveFreeShippingData(tradeInFormData);
+                    this._step3SaveFreeShippingHomeAddressData(tradeInFormData);
+                }
+                console.log(tradeInFormData);
+
+                // if($('.customer-home-address .select_home_address').length){
+                //     var select_home_address = $('.customer-home-address .select_home_address').val();
+                // }
+                // if($('.customer-different-address .select_different_address').length) {
+                //     var select_different_address = $('.customer-different-address .select_different_address').val(); 
+                // }
+
+                
+
+                // Different to Home address
+                // var different_address_street_1 = $('.different-to-home-address-form #street_1').val();
+                // if($('.different-to-home-address-form #street_2').length) {
+                //     var different_address_street_2 = $('.different-to-home-address-form #street_2').val();
+                // }
+                // if($('.different-to-home-address-form #street_3').length) {
+                //     var different_address_street_3 = $('.different-to-home-address-form #street_3').val();
+                // }
+                // if($('.different-to-home-address-form #street_4').length) {
+                //     var different_address_street_4 = $('.different-to-home-address-form #street_4').val();
+                // }
+                // var different_address_country = ('.different-to-home-address-form #home_address_country').val();
+                // var different_address_region = ('.different-to-home-address-form #states').val();
+                // var different_address_city = ('.different-to-home-address-form #city').val();
+                // var different_address_zip = ('.different-to-home-address-form #zip').val();
+            }
+        },
+
+        /**
+         * Save free shipping data
+         *
+         * @param {Object} tradeInFormData
+         * @private
+         */
+        _step3SaveFreeShippingData: function (tradeInFormData) {
+            var collection_date = $('#trade-in-collection-date').val(),
+                number_of_parcels = $('#trade-in-number-of-parcels').val(),
+                arrange_free_shipping = $('input[type=radio][name=arrange-free-shipping]:checked').val(),
+                collection_address = $('input[type=radio][name=collection-address]:checked').val();
+
+            // Set data
+            tradeInFormData.collection_date = collection_date;
+            tradeInFormData.number_of_parcels = number_of_parcels;
+            tradeInFormData.arrange_free_shipping = arrange_free_shipping;
+            tradeInFormData.collection_address = collection_address;
+            this._saveItemsDataInCookie(tradeInFormData);
+        },
+        
+        /**
+         * Save home address
+         *
+         * @param {Object} tradeInFormData
+         * @private
+         */
+        _step3SaveFreeShippingHomeAddressData: function(tradeInFormData) {
+            // Home address
+            var home_address_street_1 = null, 
+                home_address_street_2 = null,
+                home_address_street_3 = null,
+                home_address_street_4 = null,
+                home_address_country_id = null,
+                home_address_country_name = null,
+                home_address_region_name = null,
+                home_address_region_id = null,
+                home_address_city = null,
+                home_address_zip = null;
+
+            home_address_street_1 = $('.home-address-form #street_1').val();
+            if($('.home-address-form #street_2').length) {
+                home_address_street_2 = $('.home-address-form #street_2').val();
+            }
+            if($('.home-address-form #street_3').length) {
+                home_address_street_3 = $('.home-address-form #street_3').val();
+            }
+            if($('.home-address-form #street_4').length) {
+                home_address_street_4 = $('.home-address-form #street_4').val();
+            }
+            home_address_country_id = $('.home-address-form #home_address_country').val();
+            home_address_country_name = $('.home-address-form #home_address_country:selected').text();
+            home_address_region_name = $('.home-address-form #states').val();
+            home_address_city = $('.home-address-form #city').val();
+            home_address_zip = $('.home-address-form #zip').val();
+
+            // var region = $('.home-address-form #state');
+            var home_address = {};
+            home_address = {
+                "street_1":home_address_street_1,
+                "street_2":home_address_street_2,
+                "street_3":home_address_street_3,
+                "street_4":home_address_street_4,
+                "country_id":home_address_country_id,
+                "country_name":home_address_country_name,
+                "region_id":home_address_region_id,
+                "city":home_address_city,
+                "zip":home_address_zip,
+            }
+            tradeInFormData.home_address = home_address;
+            
+            this._saveItemsDataInCookie(tradeInFormData);
+        },
+
+        // /**
+        //  * Save home address
+        //  *
+        //  * @param {Object} tradeInFormData
+        //  * @private
+        //  */
+        //  _step3SaveFreeShippingDifferentAddressData: function(tradeInFormData) {
+        //     // Home address
+        //     var home_address_street_1 = null, 
+        //         home_address_street_2 = null,
+        //         home_address_street_3 = null,
+        //         home_address_street_4 = null,
+        //         home_address_country_id = null,
+        //         home_address_country_name = null,
+        //         home_address_region_name = null,
+        //         home_address_region_id = null,
+        //         home_address_city = null,
+        //         home_address_zip = null;
+            
+        //     home_address_street_1 = $('.home-address-form #street_1').val();
+        //     if($('.home-address-form #street_2').length) {
+        //         home_address_street_2 = $('.home-address-form #street_2').val();
+        //     }
+        //     if($('.home-address-form #street_3').length) {
+        //         home_address_street_3 = $('.home-address-form #street_3').val();
+        //     }
+        //     if($('.home-address-form #street_4').length) {
+        //         home_address_street_4 = $('.home-address-form #street_4').val();
+        //     }
+        //     home_address_country_id = $('.home-address-form #home_address_country').val();
+        //     home_address_country_name = $('.home-address-form #home_address_country:selected').text();
+        //     home_address_region_name = $('.home-address-form #states').val();
+        //     home_address_city = $('.home-address-form #city').val();
+        //     home_address_zip = $('.home-address-form #zip').val();
+
+        //     // var region = $('.home-address-form #state');
+        //     var home_address = {};
+        //     home_address = {
+        //         "street_1":home_address_street_1,
+        //         "street_2":home_address_street_2,
+        //         "street_3":home_address_street_3,
+        //         "street_4":home_address_street_4,
+        //         "country_id":home_address_country_id,
+        //         "country_name":home_address_country_name,
+        //         "region_id":home_address_region_id,
+        //         "city":home_address_city,
+        //         "zip":home_address_zip,
+        //     }
+        //     tradeInFormData.home_address = home_address;
+            
+        //     this._saveItemsDataInCookie(tradeInFormData);
+        // },
 
         /**
          * Retrieves item formattedPrice.

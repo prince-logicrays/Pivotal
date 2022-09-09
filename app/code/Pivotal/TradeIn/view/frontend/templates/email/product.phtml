@@ -1,0 +1,85 @@
+<?php $data = $block->getSearchWord(); ?>
+
+<?php
+// $getData = $block->getData('items');
+// if (is_array($getData)) {
+//     echo "<pre>";
+//     print_r($getData);
+// }
+// exit;
+?>
+
+<?php if (is_array($data)) {
+    $itemData = $data['itemsData']['cartItemsData'];
+
+?>
+
+<table class="email-items">
+    <tr class="email-information">
+        <td>
+            <table class="email-items">
+                <thead>
+                    <tr>
+                        <th class="item-info">
+                            Items
+                        </th>
+                        <th class="item-qty">
+                            Qty                         
+                        </th>
+                        <th class="item-condition">
+                            Condition                         
+                        </th>
+                        <th class="item-price">
+                            Price
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($itemData as $item): ?>
+                        <tr>
+                            <td class="item-info">
+                                <strong><?= /* @noEscape */ $item['productName']; ?><br></strong>
+                                <?= /* @noEscape */ $item['sku']; ?><br>
+                            </td>
+                            <td class="item-qty">
+                                <?= /* @noEscape */ $item['item_qty']; ?><br>
+                            </td>
+                            <td class="item-condition">
+                                <?= /* @noEscape */ $item['item_condition']; ?><br>
+                            </td>
+                            <td class="item-price">
+                                <?= /* @noEscape */ $item['formatted_price']; ?><br>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+                <tfoot class="order-totals">
+                    <tr>
+                        <th colspan="2" class="col-subtotal">
+                            Subtotal
+                        </th>
+                        <td colspan="2" class="col-formatted_price">
+                            <?php foreach ($itemData as $item):  ?>
+                                <?= /* @noEscape */ $item['subtotal']; ?><br>
+                            <?php endforeach; ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="2" class="col-price">
+                            <strong>Grand Total</strong>
+                        </th>
+                        <td colspan="2" class="col-price">
+                            <strong><?= /* @noEscape */ $data['itemsData']['grandTotalWithCurrency'];?></strong>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </td>
+    </tr>
+</table>
+
+<?php
+
+}
+
+?>

@@ -33,7 +33,9 @@ $viewModel = $block->getViewModel();
                 </div>
             </div>
             <div class="step-getin-touch-content" data-role="content">
-                <h1>GET AN INSTANT QUOTE</h1>
+                <div class="main-title">
+                    <h1>GET AN INSTANT QUOTE</h1>
+                </div>
                 <?= $block->getChildHtml('tradeIn.form.addItems') ?>
                 <fieldset class="fieldset">
                     <legend class="legend"><span><?= $block->escapeHtml(__('Your details')) ?></span></legend><br />
@@ -102,8 +104,8 @@ $viewModel = $block->getViewModel();
                 <div class="trade-in-quote-items"></div>
             </div>
             <div class="step-arrange-shipping-content" data-role="content">
-                <h1>step3</h1>
-                <div class="actions-toolbar">
+                <?= $block->getChildHtml('tradeIn.arrange.shipping')?>
+                <div class="actions-toolbar" style="display: none;">
                     <div class="primary">
                         <input type="hidden" name="hideit" id="hideit" value="" />
                         <button type="submit" title="<?= $block->escapeHtmlAttr(__('Submit')) ?>" class="action submit primary">
@@ -133,17 +135,27 @@ $viewModel = $block->getViewModel();
     .add-more-item{text-align: center;}
     .add-more-btn,
     .step-get-quote-content,
-    .step-arrange-shipping-content {display: none;}
+    .step-arrange-shipping-content,
+    .book-free-shipping-content,
+    .book-in-store-drop-off-content,
+    .customer-home-address,
+    .customer-different-address,
+    .home-address-form,
+    .different-to-home-address-form {display: none;}
     .tradein-form-steps .step-title {
         display: inline-block;
         text-align: center;
         width: 33%;
     }
     .mb-20 {margin-bottom: 20px;}
+    .mt-20 {margin-top: 20px;}
     .error {
         color: #e02b27;
         font-size: 1.2rem;
         margin-top: 7px;
+    }
+    .main-title {
+        text-align: center;
     }
     /* Step 2 */
     tr.item-info {border-top: 1px solid #cccccc;}
@@ -167,4 +179,25 @@ $viewModel = $block->getViewModel();
     button.item-qty-decrease.inc-dec-btn {
         border-top: none;
     }
+    /* Step3 */
+    .arrange-shipping-wrap .arrange-shipping-title {
+        display: inline-block;
+        text-align: center;
+        width: 49.5%;
+    }
+    .arrange-shipping-wrap .arrange-shipping-title button,
+    .arrange-shipping-wrap .arrange-shipping-title button:hover{
+        padding: 15px;
+        font-size: 15px;
+        color: #ffffff;
+        background: #799393;
+        border-color: #799393;
+    }
+    .arrange-shipping-wrap .arrange-shipping-title[aria-selected="true"] button {
+        font-weight: bold;
+        background-color: #218888;
+        border-color: #218888;
+        color: #ffffff;
+    }
+    form.trade-in-form .nested .control {width: 100%;}
 </style>
